@@ -46,7 +46,6 @@
             </div>
         </div>
         <div class="container">
-        <!--div class="row" style="background-color: #faf9f9; margin: auto;"-->
 
             <section class="row" style="background-color: #faf9f9;">
             </section>
@@ -74,14 +73,52 @@
                         }
                         console.log($_GET);
 
-                        
+                       
                         
                     </script>
-                    <button type="button" class="btn btn-primary btn-lg">Enregistrer dans le panier</button>
+                    <a id="bouton" class="btn btn-primary btn-lg" href="panier.html" >Enregistrer dans le panier</a>
                 </div>
             </div>
         </div>
+        <script>
+            const button_enregistrer = document.getElementById('bouton')
+            button_enregistrer.addEventListener('click', event => {
+                button_enregistrer.innerHTML = `Envoyer dans le panier`
 
+                if(!localStorage.getItem('liste3')) {
+                    var liste = []
+                } else {
+                    var liste_JSON = localStorage.getItem('liste3')
+                    var liste = JSON.parse(liste_JSON)
+                    console.log(liste)
+                }
+                var $_GET = [];
+                var parts = window.location.search.substr(1).split("&");
+                for (var i = 0; i < parts.length; i++) {
+                    var temp = parts[i].split("=");
+                    $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+                }
+                console.log($_GET['id'])                
+                liste.push($_GET['id'])
+                console.log(liste)
+                var liste_JSON = JSON.stringify(liste)
+                localStorage.setItem("liste3",liste_JSON)
+                //localStorage.setItem('liste', liste)
+                console.log(localStorage)
+
+                /*var monobjet  = {
+                    propriete1 : "valeur1",
+                    propriete2 : "valeur2"
+                };
+                var monobjet_json = JSON.stringify(monobjet);
+                sessionStorage.setItem("objet",monobjet_json);*/
+
+                /*var monobjet_json = sessionStorage.getItem("objet");
+                var monobjet = JSON.parse(monobjet_json);
+                // Affichage dans la console
+                console.log(monobjet);*/
+            })
+        </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

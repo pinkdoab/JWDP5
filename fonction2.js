@@ -1,5 +1,19 @@
+var $_GET = [];
+var parts = window.location.search.substr(1).split("&");
+for (var i = 0; i < parts.length; i++) {
+    var temp = parts[i].split("=");
+    $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+}
+console.log($_GET);
+
+
+
 let XHR = new XMLHttpRequest()
-let url = "http://localhost:3000/api/cameras/5be1ed3f1c9d44000030b061"
+//let url = "http://localhost:3000/api/cameras/5be1ed3f1c9d44000030b061"
+let url = "http://localhost:3000/api/cameras/" + $_GET['id']
+console.log(url);
+
+
 
 XHR.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -60,3 +74,4 @@ function DessineCarteCamera(section, camera) {
 
     section.appendChild(elementDivCol)
 }
+
