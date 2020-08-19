@@ -1,10 +1,12 @@
 let XHR = new XMLHttpRequest()
-let url = "http://localhost:3000/api/cameras"
+let url = "http://localhost:3000/api/cameras/5be1ed3f1c9d44000030b061"
 
 XHR.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        let catalogue_camera = JSON.parse(this.responseText)
-        DessineCatalogueCamera(catalogue_camera)
+        let camera = JSON.parse(this.responseText)
+        console.log(camera);
+        let section = document.querySelector('section')
+        DessineCarteCamera(section, camera)
     }
 }
 
@@ -12,30 +14,22 @@ XHR.open("GET", url, true);
 XHR.send();
 
 
-function DessineCatalogueCamera(catalogue_camera) {
-    console.log(catalogue_camera);
-    let section = document.querySelector('section')
-    for (let ref in catalogue_camera) {
-        DessineCarteCamera(section,  catalogue_camera[ref])
-    }
-}
-
 function DessineCarteCamera(section, camera) {
 
-    /*<div class="col-4" style="padding: 10px;">
+    /*div class="col align-self-center">
         <div class="card">
             <img class="card-img-top" src="images/logo.png" alt="">
             <div class="card-body">
                 <h5 class="card-title">Name</h5>
                 <p class="card-text">price</p>
-                <a href="produit.html" class="stretched-link"></a>
+                <a href="#" class="stretched-link"></a>
             </div>
         </div>
-    </div>*/
+    </div>
+    */
 
     let elementDivCol = document.createElement('div')
-    elementDivCol.className = 'col-4'
-    elementDivCol.setAttribute("style", "padding: 10px;");
+    elementDivCol.className = 'col-8 align-self-center'
 
     let elementDivCard = document.createElement('div')
     elementDivCard.className = 'card'
@@ -57,18 +51,12 @@ function DessineCarteCamera(section, camera) {
     let nomPrice = document.createTextNode(camera['price'] + '€')
     elementPrice.appendChild(nomPrice)
 
-    let elementLien = document.createElement('a')
-    elementLien.className = 'stretched-link'
-    let nomlien = document.createTextNode(camera['price'])
-    elementLien.setAttribute('href', "produit.html?id=" + camera['_id'])
-
 
     elementDivCol.appendChild(elementDivCard)
     elementDivCard.appendChild(elementImg)
     elementDivCard.appendChild(elementDivCardBody)    
     elementDivCardBody.appendChild(elementH5)
     elementDivCardBody.appendChild(elementPrice)
-    elementDivCardBody.appendChild(elementLien)
 
     section.appendChild(elementDivCol)
 }
