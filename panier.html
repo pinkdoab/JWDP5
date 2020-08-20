@@ -42,7 +42,7 @@
 							<th scope="col">Lentilles</th>
 							<th scope="col">Prix</th>
 							<th scope="col">
-								<button type="submit" class="btn btn-primary">Retirez tous les produits du panier</button>
+								<button id="bouton_sup" class="btn btn-primary">Retirez tous les produits du panier</button>
 							</th>
 						</tr>
 					</thead>
@@ -123,7 +123,7 @@
 							<input type="text" class="form-control" id="inputZip">
 						</div>
 					</div>
-						<button type="submit" class="btn btn-primary">Confirmation de votre commande</button>
+						<button id="bouton_sup" class="btn btn-primary">Confirmation de votre commande</button>
 					</form>
 				</div>
 			
@@ -142,12 +142,18 @@
 
 			tableau()
 
-
+			const button_enregistrer2 = document.getElementById('bouton_sup')
+            button_enregistrer2.addEventListener('click', event => {
+				button_enregistrer2.innerHTML = `Envoyer dans le panier`
+				
+				localStorage.clear();
+				window.location.reload();
+			})
 
 		</script>
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<!--script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script-->
 	</body>
 </html>

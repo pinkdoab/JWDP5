@@ -1,10 +1,26 @@
+let XHR = new XMLHttpRequest()
+let url = "http://localhost:3000/api/cameras"
+
+XHR.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        let catalogue_camera = JSON.parse(this.responseText)
+    }
+}
+
+XHR.open("GET", url, true);
+XHR.send();
+
+
+
+
 function tableau() {
     let tbody = document.querySelector('tbody')
     var liste_JSON = localStorage.getItem('liste3')
     var liste = JSON.parse(liste_JSON)
     console.log(liste)
-
-    DessineCarteCamera(tbody, liste)
+    //for (let ref in liste) {
+        DessineCarteCamera(tbody, liste)
+    //}
 } 
 /*<tr>
     <td>Zurss 50S</td>
@@ -14,12 +30,23 @@ function tableau() {
 </tr>*/
 
 function DessineCarteCamera(tbody, liste) {
-    let elementTr = document.createElement('tr')
-    let elementTd = document.createElement('td')
-    let elementId = document.createTextNode(liste)
-    elementTd.appendChild(elementId)
+    //if (!liste.length < 1) {
+    if (liste != null && liste.length > 0) {
 
-    elementTr.appendChild(elementTd)
 
-    tbody.appendChild(elementTr)
+        for (let index = 0; index < liste.length; index++) {
+            //const element = array[index];
+            
+        
+            let elementTr = document.createElement('tr')
+            let elementTd = document.createElement('td')
+            let elementId = document.createTextNode(liste[index])
+            elementTd.appendChild(elementId)
+        
+            elementTr.appendChild(elementTd)
+        
+            tbody.appendChild(elementTr)
+        }
+    }
+
 }
