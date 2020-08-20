@@ -8,9 +8,9 @@ XHR.onreadystatechange = function() {
         console.log(catalogue_camera)
         var liste_JSON = localStorage.getItem('liste3')
         var liste = JSON.parse(liste_JSON)
-        console.log(liste)
+        console.log("liste : " + liste)
         
-        var id = liste[0]
+        /*var id = liste[0]
         //console.log(id)
         var elt = []
         catalogue_camera.forEach(element => {
@@ -20,8 +20,28 @@ XHR.onreadystatechange = function() {
                 elt.push(element['price'])
             }
         })
-        console.log(elt)
-        tableau(elt)
+        console.log(elt)*/
+        var panier =[]
+        liste.forEach(camera => {
+            var id = camera
+            console.log("id : " + id)
+            var elt = []
+            catalogue_camera.forEach(element => {
+                //console.log("element : " + element)
+                if (id == element['_id']) {
+                    elt.push(element['name'])
+                    elt.push(element['price'])
+                    panier.push(elt)
+                }
+            })
+
+        });
+        console.log(panier)
+
+        //console.log(id)
+        
+
+        tableau(panier)
 
     }
 }
@@ -50,21 +70,26 @@ function tableau(elt) {
     <td>Bouton Retirer du panier</td>
 </tr>*/
 
-function DessineCarteCamera(tbody, liste) {
-    //if (!liste.length < 1) {
-    if (liste != null && liste.length > 0) {
+function DessineCarteCamera(tbody, panier) {
+    //if (!panier.length < 1) {
+    if (panier != null && panier.length > 0) {
 
 
-        for (let index = 0; index < liste.length; index++) {
+        for (let index = 0; index < panier.length; index++) {
             //const element = array[index];
             
         
             let elementTr = document.createElement('tr')
-            let elementTd = document.createElement('td')
-            let elementId = document.createTextNode(liste[0])
-            elementTd.appendChild(elementId)
+            let elementTd1 = document.createElement('td')
+            let elementId1 = document.createTextNode(panier[index][0])
+            elementTd1.appendChild(elementId1)
+
+            let elementTd2 = document.createElement('td')
+            let elementPrix = document.createTextNode(panier[index][1])
+            elementTd2.appendChild(elementPrix)
         
-            elementTr.appendChild(elementTd)
+            elementTr.appendChild(elementTd1)
+            elementTr.appendChild(elementTd2)
         
             tbody.appendChild(elementTr)
         }
