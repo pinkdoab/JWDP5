@@ -71,7 +71,7 @@
                             var temp = parts[i].split("=");
                             $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
                         }
-                        console.log($_GET);
+                        //console.log($_GET);
 
                        
                         
@@ -100,12 +100,12 @@
                 }
                 console.log($_GET['id'])
                 
-                var elt = []
-                elt.push($_GET['name'])
-                elt.push($_GET['price'])
+                //var elt = []
+                //elt.push($_GET['name'])
+                //elt.push($_GET['price'])
                 
-                liste.push(elt)
-                //liste.push($_GET['id'])
+                //liste.push(elt)
+                liste.push($_GET['id'])
                 console.log(liste)
                 var liste_JSON = JSON.stringify(liste)
                 localStorage.setItem("liste3",liste_JSON)

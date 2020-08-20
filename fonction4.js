@@ -4,6 +4,25 @@ let url = "http://localhost:3000/api/cameras"
 XHR.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         let catalogue_camera = JSON.parse(this.responseText)
+
+        console.log(catalogue_camera)
+        var liste_JSON = localStorage.getItem('liste3')
+        var liste = JSON.parse(liste_JSON)
+        console.log(liste)
+        
+        var id = liste[0]
+        //console.log(id)
+        var elt = []
+        catalogue_camera.forEach(element => {
+            //console.log(element)
+            if (id == element['_id']) {
+                elt.push(element['name'])
+                elt.push(element['price'])
+            }
+        })
+        console.log(elt)
+        tableau(elt)
+
     }
 }
 
@@ -12,14 +31,16 @@ XHR.send();
 
 
 
-
-function tableau() {
+function tableau(elt) {
     let tbody = document.querySelector('tbody')
     var liste_JSON = localStorage.getItem('liste3')
     var liste = JSON.parse(liste_JSON)
-    console.log(liste)
+
+    console.log("nom : "+ elt[0])
+    console.log("prix : "+ elt[1])
+
     //for (let ref in liste) {
-        DessineCarteCamera(tbody, liste)
+        DessineCarteCamera(tbody, elt)
     //}
 } 
 /*<tr>
@@ -40,7 +61,7 @@ function DessineCarteCamera(tbody, liste) {
         
             let elementTr = document.createElement('tr')
             let elementTd = document.createElement('td')
-            let elementId = document.createTextNode(liste[index])
+            let elementId = document.createTextNode(liste[0])
             elementTd.appendChild(elementId)
         
             elementTr.appendChild(elementTd)

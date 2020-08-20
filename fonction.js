@@ -13,7 +13,7 @@ XHR.send();
 
 
 function DessineCatalogueCamera(catalogue_camera) {
-    console.log(catalogue_camera);
+    //console.log(catalogue_camera);
     let section = document.querySelector('section')
     for (let ref in catalogue_camera) {
         DessineCarteCamera(section,  catalogue_camera[ref])
