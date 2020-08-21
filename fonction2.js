@@ -14,12 +14,11 @@ XHR.send();
 XHR.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         let camera = JSON.parse(this.responseText)
-        let section = document.querySelector('section')
-        AfficheCarteCameraGrandFormat(section, camera)
+        AfficheCarteCameraGrandFormat(camera)
     }
 }
 
-function AfficheCarteCameraGrandFormat(section, camera) {
+function AfficheCarteCameraGrandFormat(camera) {
 
     let elementDivCol = document.createElement('div')               //  <div class="col-8 align-self-center">
     elementDivCol.className = 'col-8 align-self-center'
@@ -43,12 +42,14 @@ function AfficheCarteCameraGrandFormat(section, camera) {
     elementH5.appendChild(nomH5)
     elementDivCardBody.appendChild(elementH5)
 
-    let elementPrice = document.createElement('p')                  //              <p class="card-text">price</p>
+    let elementPrice = document.createElement('p')                  //              <p class="card-text">price €</p>
     elementPrice.className = 'card-text'
-    let nomPrice = document.createTextNode(camera['price'] + '€')
+    let prixEuro = camera['price']/100
+    let nomPrice = document.createTextNode(prixEuro + ' €')
     elementPrice.appendChild(nomPrice)
     elementDivCardBody.appendChild(elementPrice)
 
+    let section = document.querySelector('section')
     section.appendChild(elementDivCol)
 }
 
