@@ -14,54 +14,39 @@ XHR.send();
 XHR.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         let camera = JSON.parse(this.responseText)
-        //console.log(camera);
         let section = document.querySelector('section')
-        DessineCarteCamera(section, camera)
+        AfficheCarteCameraGrandFormat(section, camera)
     }
 }
 
-function DessineCarteCamera(section, camera) {
+function AfficheCarteCameraGrandFormat(section, camera) {
 
-    /*div class="col align-self-center">
-        <div class="card">
-            <img class="card-img-top" src="images/logo.png" alt="">
-            <div class="card-body">
-                <h5 class="card-title">Name</h5>
-                <p class="card-text">price</p>
-                <a href="#" class="stretched-link"></a>
-            </div>
-        </div>
-    </div>
-    */
-
-    let elementDivCol = document.createElement('div')
+    let elementDivCol = document.createElement('div')               //  <div class="col-8 align-self-center">
     elementDivCol.className = 'col-8 align-self-center'
 
-    let elementDivCard = document.createElement('div')
+    let elementDivCard = document.createElement('div')              //      <div class="card">
     elementDivCard.className = 'card'
+    elementDivCol.appendChild(elementDivCard)
 
-    let elementImg = document.createElement('img')
+    let elementImg = document.createElement('img')                  //          <img class="card-img-top" src="images/logo.png">
     elementImg.className = 'card-img-top'
     elementImg.setAttribute("src", camera['imageUrl']);
+    elementDivCard.appendChild(elementImg)
 
-    let elementDivCardBody = document.createElement('div')
-    elementDivCardBody.className = 'card-body'    
+    let elementDivCardBody = document.createElement('div')          //          <div class="card-body">
+    elementDivCardBody.className = 'card-body'
+    elementDivCard.appendChild(elementDivCardBody)    
 
-    let elementH5 = document.createElement('h5')
+    let elementH5 = document.createElement('h5')                    //              <h5 class="card-title">Name</h5>
     elementH5.className = 'card-title'
     let nomH5 = document.createTextNode(camera['name'])
     elementH5.appendChild(nomH5)
+    elementDivCardBody.appendChild(elementH5)
 
-    let elementPrice = document.createElement('p')
+    let elementPrice = document.createElement('p')                  //              <p class="card-text">price</p>
     elementPrice.className = 'card-text'
     let nomPrice = document.createTextNode(camera['price'] + '€')
     elementPrice.appendChild(nomPrice)
-
-
-    elementDivCol.appendChild(elementDivCard)
-    elementDivCard.appendChild(elementImg)
-    elementDivCard.appendChild(elementDivCardBody)    
-    elementDivCardBody.appendChild(elementH5)
     elementDivCardBody.appendChild(elementPrice)
 
     section.appendChild(elementDivCol)

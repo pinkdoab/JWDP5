@@ -5,18 +5,18 @@ XHR.send();
 
 XHR.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        let catalogue_camera = JSON.parse(this.responseText)
-        ListeCatalogueCamera(catalogue_camera)
+        let catalogue_JSON = JSON.parse(this.responseText)
+        Catalogue(catalogue_JSON)
     }
 }
 
-function ListeCatalogueCamera(catalogue_camera) {
-    for (let camera in catalogue_camera) {
-        CreaCarteCamera(catalogue_camera[camera])        
+function Catalogue(catalogue_JSON) {
+    for (let camera in catalogue_JSON) {
+        AfficheCarteCameraPetitFormat(catalogue_JSON[camera])        
     }
 }
 
-function CreaCarteCamera(camera) {
+function AfficheCarteCameraPetitFormat(camera) {
 
     let section = document.querySelector('section')
 
