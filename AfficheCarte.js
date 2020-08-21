@@ -3,7 +3,14 @@ function AfficheCatalogue(catalogue_JSON) {
         AfficheCarteCameraPetitFormat(catalogue_JSON[camera])        
     }
 }
-
+/* Fonction permettant d'afficher sous forme de carte dans le DOM un produit "caméra" en JSON
+Champ       Type
+id          ObjectID
+name        string
+price       number
+description string
+imageUrl    string
+*/
 function AfficheCarteCameraPetitFormat(camera) {
 
     let section = document.querySelector('section')

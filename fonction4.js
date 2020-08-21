@@ -6,22 +6,11 @@ XHR.onreadystatechange = function() {
         let catalogue_camera = JSON.parse(this.responseText)
 
         console.log(catalogue_camera)
-        var liste_JSON = localStorage.getItem('liste3')
+        var liste_JSON = localStorage.getItem('liste')
         var liste = JSON.parse(liste_JSON)
         console.log("liste : " + liste)
         
-        /*var id = liste[0]
-        //console.log(id)
-        var elt = []
-        catalogue_camera.forEach(element => {
-            //console.log(element)
-            if (id == element['_id']) {
-                elt.push(element['name'])
-                elt.push(element['price'])
-            }
-        })
-        console.log(elt)*/
-        var panier =[]
+        var panier = []
         liste.forEach(camera => {
             var id = camera
             console.log("id : " + id)
@@ -34,26 +23,17 @@ XHR.onreadystatechange = function() {
                     panier.push(elt)
                 }
             })
-
-        });
-        console.log(panier)
-
-        //console.log(id)
-        
-
+        });        
         tableau(panier)
-
     }
 }
 
 XHR.open("GET", url, true);
 XHR.send();
 
-
-
 function tableau(elt) {
     let tbody = document.querySelector('tbody')
-    var liste_JSON = localStorage.getItem('liste3')
+    var liste_JSON = localStorage.getItem('liste')
     var liste = JSON.parse(liste_JSON)
 
     console.log("nom : "+ elt[0])
