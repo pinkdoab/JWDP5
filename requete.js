@@ -39,22 +39,24 @@ let Get3 = function (url) {
             console.log("liste : " + liste)
             
             var panier = []
-    
-            liste.forEach(camera => {
-                var id = camera
-                console.log("id : " + id)
-                var elt = []
-                catalogue_JSON.forEach(element => {
-                    //console.log("element : " + element)
-                    if (id == element['_id']) {
-                        elt.push(element['name'])
-                        elt.push(element['price'])
-                        panier.push(elt)
-                    }
-                })
-            });        
-            AffichePanier(panier)
-        }
+            if (liste) {
+                liste.forEach(camera => {
+                    var id = camera
+                    console.log("id : " + id)
+                    var elt = []
+                    catalogue_JSON.forEach(element => {
+                        //console.log("element : " + element)
+                        if (id == element['_id']) {
+                            elt.push(element['name'])
+                            elt.push(element['price'])
+                            panier.push(elt)
+                        }
+                    })
+                });        
+                AffichePanier(panier)
+            }
+            }
+ 
     }
     XHR.open("GET", url, true);
     XHR.send();

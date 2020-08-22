@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
 	<link rel="stylesheet" href="style.css">
-  
+ 
 </head>
 <body>
 	<header class="row bg-primary">
@@ -102,16 +102,12 @@
 		</div>
 
 		<script type="text/javascript" src="requete.js"></script>
-        <script type="text/javascript" src="AfficheCarte.js"></script>
-		<script>
-			let url = "http://localhost:3000/api/cameras"
-			Get3(url)
+		<script type="text/javascript" src="AfficheCarte.js"></script>
+		<script type="text/javascript" src="evenement.js"></script> 
 
-			const boutonEffacePanier = document.getElementById('boutonEffacePanier')
-            boutonEffacePanier.addEventListener('click', event => {				
-				localStorage.clear();
-				window.location.reload();
-			})
+		<script>
+			Get3('http://localhost:3000/api/cameras')
+
 		</script>
 
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
