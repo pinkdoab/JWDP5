@@ -42,7 +42,7 @@
 							<th scope="col">Prix</th>
 							<th scope="col">Lentilles</th>
 							<th scope="col">
-								<button id="bouton_sup" class="btn btn-primary">Effacer le panier</button>
+								<button id="boutonEffacePanier" class="btn btn-primary">Effacer le panier</button>
 							</th>
 						</tr>
 					</thead>
@@ -94,35 +94,25 @@
 						</div>
 					</div>
 
-						<button id="bouton_sup" class="btn btn-primary">Confirmation de votre commande</button>
+						<button id="boutonComfirmCommande" class="btn btn-primary">Confirmation de votre commande</button>
 					</form>
 				</div>
 			
 			</div>
 		</div>
-		<!--div class="row">
-				<div class="col">
-						<div class="text-center">
-								<button type="button" class="btn btn-primary btn-lg">Bouton</button>
-						</div>
-				</div>
-		</div-->
-		<section>
-		</section>
+
+		<script type="text/javascript" src="requete.js"></script>
+        <script type="text/javascript" src="AfficheCarte.js"></script>
 		<script>
+			let url = "http://localhost:3000/api/cameras"
+			Get3(url)
 
-			//tableau()
-
-			const button_enregistrer2 = document.getElementById('bouton_sup')
-            button_enregistrer2.addEventListener('click', event => {
-				button_enregistrer2.innerHTML = `Envoyer dans le panier`
-				
+			const boutonEffacePanier = document.getElementById('boutonEffacePanier')
+            boutonEffacePanier.addEventListener('click', event => {				
 				localStorage.clear();
 				window.location.reload();
 			})
-
 		</script>
-		<script type="text/javascript" src="fonction4.js"></script> 
 
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

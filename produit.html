@@ -50,7 +50,7 @@
         <div class="row" style="margin: 20px;">
             <div class="col">
                 <div class="text-center">
-                    <a id="bouton" class="btn btn-primary btn-lg" href="panier.html" >Enregistrer dans le panier</a>
+                    <a id="boutonChoixProduit" class="btn btn-primary btn-lg" href="panier.html" >Enregistrer dans le panier</a>
                 </div>
             </div>
         </div>
@@ -61,16 +61,23 @@
             let $_GET = motif.exec(window.location.search)
             let url = "http://localhost:3000/api/cameras/" + $_GET
             Get2(url)
+            console.log('url : ' + url)
 
-            const button_enregistrer = document.getElementById('bouton')
-            button_enregistrer.addEventListener('click', event => {
+            const boutonChoixProduit = document.getElementById('boutonChoixProduit')
+
+            boutonChoixProduit.addEventListener('click', event => {
                 if(!localStorage.getItem('liste')) {
-                    let catalogueProduit = []
+                    var catalogueProduit = []
+                    console.log('catalogueProduit vide : ' + catalogueProduit)
                 } else {
-                    let catalogueProduit = JSON.parse(localStorage.getItem('liste'))
+                    var catalogueProduit = JSON.parse(localStorage.getItem('liste'))
+                    console.log('catalogueProduit plein : ' + catalogueProduit)
                 }
+                console.log('$_GET : ' + $_GET)
                 catalogueProduit.push($_GET)
+                console.log('catalogueProduit ajout : ' + catalogueProduit)
                 localStorage.setItem("liste",JSON.stringify(catalogueProduit))
+                console.log('catalogueProduit fin : ' + catalogueProduit)
             })
         </script>
 

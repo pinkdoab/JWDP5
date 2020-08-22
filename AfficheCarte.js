@@ -89,3 +89,31 @@ function AfficheCarteCameraGrandFormat(camera) {
     let section = document.querySelector('section')
     section.appendChild(elementDivCol)
 }
+
+function AffichePanier(panier) {
+    let tbody = document.querySelector('tbody')
+    //if (!panier.length < 1) {
+    if (panier != null && panier.length > 0) {
+
+
+        for (let index = 0; index < panier.length; index++) {
+            //const element = array[index];
+            
+        
+            let elementTr = document.createElement('tr')
+            let elementTd1 = document.createElement('td')
+            let elementId1 = document.createTextNode(panier[index][0])
+            elementTd1.appendChild(elementId1)
+
+            let elementTd2 = document.createElement('td')
+            let elementPrix = document.createTextNode(panier[index][1])
+            elementTd2.appendChild(elementPrix)
+        
+            elementTr.appendChild(elementTd1)
+            elementTr.appendChild(elementTd2)
+        
+            tbody.appendChild(elementTr)
+        }
+    }
+
+}
