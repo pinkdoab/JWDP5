@@ -13,7 +13,7 @@ imageUrl    string
 */
 function AfficheCarteCameraPetitFormat(camera) {
 
-    let section = document.querySelector('section')
+
 
     let elementDivCol = document.createElement('div')           //  <div class="col-4" style="padding: 10px;">
     elementDivCol.className = 'col-4'
@@ -52,6 +52,7 @@ function AfficheCarteCameraPetitFormat(camera) {
     elementDivCardBody.appendChild(elementPrice)
     elementDivCardBody.appendChild(elementLien)
 
+    let section = document.querySelector('section')
     section.appendChild(elementDivCol)
 }
 
@@ -79,6 +80,13 @@ function AfficheCarteCameraGrandFormat(camera) {
     elementH5.appendChild(nomH5)
     elementDivCardBody.appendChild(elementH5)
 
+    let elementCommentaire = document.createElement('p')                  //              <p class="card-text">price €</p>
+    elementCommentaire.className = 'card-text'
+    let nomCom = document.createTextNode(camera['description'])
+    elementCommentaire.appendChild(nomCom)
+    elementDivCardBody.appendChild(elementCommentaire)
+
+
     let elementPrice = document.createElement('p')                  //              <p class="card-text">price €</p>
     elementPrice.className = 'card-text'
     let prixEuro = camera['price']/100
@@ -91,15 +99,8 @@ function AfficheCarteCameraGrandFormat(camera) {
 }
 
 function AffichePanier(panier) {
-    let tbody = document.querySelector('tbody')
-    //if (!panier.length < 1) {
     if (panier != null && panier.length > 0) {
-
-
-        for (let index = 0; index < panier.length; index++) {
-            //const element = array[index];
-            
-        
+        for (let index = 0; index < panier.length; index++) {        
             let elementTr = document.createElement('tr')
             let elementTd1 = document.createElement('td')
             let elementId1 = document.createTextNode(panier[index][0])
@@ -111,9 +112,29 @@ function AffichePanier(panier) {
         
             elementTr.appendChild(elementTd1)
             elementTr.appendChild(elementTd2)
-        
+
+            let tbody = document.querySelector('tbody')
             tbody.appendChild(elementTr)
         }
     }
+}
 
+/*
+<div id="menu_objectif" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    <a class="dropdown-item" href="#">Lentille A</a>
+    <a class="dropdown-item" href="#">Lentille B</a>
+    <a class="dropdown-item" href="#">Lentille C</a>
+*/
+function CreaMenuLenses(catalogue_JSON) {
+    console.log('liste Objectifs : ' + catalogue_JSON['lenses'])
+
+    let elementChoix = []    
+    for (let index = 0; index < catalogue_JSON['lenses'].length; index++) {
+        elementChoix = document.createElement('a')
+        elementChoix.className = 'dropdown-item'
+        elementChoix.setAttribute('href', '#')
+        elementChoix.appendChild(document.createTextNode(catalogue_JSON['lenses'][index]))
+        let menuObjectif = document.querySelector('.menu_objectif')
+        menuObjectif.appendChild(elementChoix)
+    }
 }

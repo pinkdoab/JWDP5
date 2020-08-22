@@ -25,15 +25,15 @@
                             <a class="nav-link" href="panier.html">Panier</a>
                         </li>
                         <li class="nav-item active dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Personnalisation
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Lentille A</a>
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Choisir un 0bjectif</a>
+                            <div class="dropdown-menu menu_objectif">
+                                <!--a class="dropdown-item" href="#">Lentille A</a>
                                 <a class="dropdown-item" href="#">Lentille B</a>
-                                <a class="dropdown-item" href="#">Lentille C</a>
+                                <a class="dropdown-item" href="#">Lentille C</a-->
                             </div>
                         </li>
+
+
                     </ul>
                 </div>
             </nav>       
@@ -57,7 +57,7 @@
 
         <script type="text/javascript" src="requete.js"></script>
         <script type="text/javascript" src="AfficheCarte.js"></script>
-
+        <script type="text/javascript" src="evenement.js"></script>
 
         <script>
             let motif = /[^\?id=].*/ig
@@ -65,7 +65,7 @@
             let url = "http://localhost:3000/api/cameras/" + $_GET
             Get2(url)
         </script>
-        <script type="text/javascript" src="evenement.js"></script>
+
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
