@@ -33,24 +33,37 @@ let Get3 = function (url) {
     XHR.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             let catalogue_JSON = JSON.parse(this.responseText)
-            console.log('catalogue_JSON : ' + catalogue_JSON)
+            //console.log('catalogue_JSON : ' + catalogue_JSON)
     
-            var liste_JSON = localStorage.getItem('liste')
-            var liste = JSON.parse(liste_JSON)
+            var liste = JSON.parse(localStorage.getItem('liste'))
             console.log("liste : " + liste)
             
             var panier = []
             if (liste) {
-                liste.forEach(camera => {
-                    var id = camera
-                    console.log("id : " + id)
+                liste.forEach(eltcamera => {
+
+                    //console.log("eltcamera : " + eltcamera)
+
+                    let motif = /.*obj.*/ig
+                    let idModif = eltcamera
+                    let obj = 0
+                    if (motif.test(eltcamera)) {
+                        let motif = /(.*)\?obj=(.)/ig
+                        idModif = motif.exec(eltcamera)
+                        //console.log("idModif : " + idModif[1])                    
+                        eltcamera = idModif[1]
+                        obj = idModif[2]
+                    }
+
                     var elt = []
                     catalogue_JSON.forEach(element => {
-                        //console.log("element : " + element)
-                        if (id == element['_id']) {
-                            elt.push(element['name'])
-                            elt.push(element['price'])
-                            panier.push(elt)
+                        if (eltcamera == element['_id']) {
+                            let cam = []
+                            cam.push(element['name'])
+                            cam.push(element['price'])
+                            cam.push(element['lenses'][obj])
+                            panier.push(cam)
+                            //console.log("panier = : " + panier)
                         }
                     })
                 });        
@@ -61,4 +74,46 @@ let Get3 = function (url) {
     }
     XHR.open("GET", url, true);
     XHR.send();
+}
+// ___________________________________________________________
+
+/* Expects request to contain:
+ * contact: {
+ *   firstName: string,
+ *   lastName: string,
+ *   address: string,
+ *   city: string,
+ *   email: string
+ * }
+ * products: [string] <-- array of product _id
+ */
+
+let Get4 = function (url) {
+    let XHR = new XMLHttpRequest()
+    console.log("erreur")
+    XHR.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 201) {
+            console.log(JSON.parse(this.responseText))
+        } else {
+            console.log(this.status)
+        }
+    }
+    let contact = {
+        firstName : 'eeee',
+        lastName : 'zzzzz',
+        address : 'xxxxxx',
+        city : 'qqqqqq',
+        email : 'ffff@fff.fr'
+    }
+    let products = ["5be1ed3f1c9d44000030b061", "5be1ef211c9d44000030b062"]
+    let objet = {
+        contact,
+        products
+    }
+    let objetRequest = JSON.stringify(objet);
+
+    XHR.open("POST", url, true)
+    //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    XHR.setRequestHeader("Content-Type", "application/json")
+    XHR.send(objetRequest) 
 }

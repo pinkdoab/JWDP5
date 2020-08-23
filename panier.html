@@ -39,8 +39,8 @@
 					<thead>
 						<tr>
 							<th scope="col">Produit</th>
-							<th scope="col">Prix</th>
 							<th scope="col">Lentilles</th>
+							<th scope="col">Prix</th>
 							<th scope="col">
 								<button id="boutonEffacePanier" class="btn btn-primary">Effacer le panier</button>
 							</th>
@@ -53,7 +53,7 @@
 		</div>
 		<div class="row" style="background-color: #faf9f9">
 			<div class="col">
-				<h5>Prix total : 2100 E</h5>
+				<h5></h5>
 			</div>
 		</div>
 	</div>
@@ -65,36 +65,40 @@
 		<div class="container">
 		<div class="row">
 			<div class="col align-self-center">
-				<form>
-
+				<form id="formumaire">
 					<div class="form-row">
 						<div class="col">
+							<!--input type="text" class="form-control" placeholder="Nom" required pattern=".{2,30}" title="Au moins deux caractères"-->
 							<input type="text" class="form-control" placeholder="Nom">
 						</div>
 						<div class="col">
-							<input type="text" class="form-control" placeholder="Prénom">
+							<!--input type="text" class="form-control" placeholder="Prenom"  required pattern=".{2,30}" title="Au moins deux caractères"-->
+							<input type="text" class="form-control" placeholder="Prenom">
 						</div>
 					</div>
 
 					<div class="form-row">
 						<div class="col">
-							<label for="inputAddress">Adresse</label>
+							<label for="inputAdresse">Adresse</label>
+							<!--input type="text" class="form-control" placeholder="2, avenue Ben Salha"  required pattern=".{2,30}" title="Au moins deux caractères"-->
 							<input type="text" class="form-control" placeholder="2, avenue Ben Salha">
 						</div>
 					</div>
 
 					<div class="form-row">
 						<div class="col">
-							<label for="inputEmail">Ville</label>
-							<input type="email" class="form-control" placeholder="Tokyo">
+							<label for="inputVille">Ville</label>
+							<!--input type="text" class="form-control" placeholder="Tokyo"  required pattern=".{2,30}" title="Au moins deux caractères"-->
+							<input type="text" class="form-control" placeholder="Tokyo">
 						</div>
 						<div class="col">
-							<label for="inputCity">Email</label>
-							<input type="text" class="form-control" placeholder="olivier@doab.fr">
+							<label for="inputEmail">Email</label>
+							<!--input type="email" class="form-control" placeholder="pink@gmail.fr" required-->
+							<input type="email" class="form-control" placeholder="pink@gmail.fr">
 						</div>
 					</div>
-
-						<button id="boutonComfirmCommande" class="btn btn-primary">Confirmation de votre commande</button>
+					<!--input id="boutonComfirmCommande" class="btn btn-primary" type="submit" name="Confirmation" value="Confirmation de votre commande"-->
+					<button id="boutonComfirmCommande" class="btn btn-primary">Confirmation de votre commande</button>
 					</form>
 				</div>
 			

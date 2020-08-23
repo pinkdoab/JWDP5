@@ -87,7 +87,6 @@ function AfficheCarteCameraGrandFormat(camera) {
 
     let motif = /.*obj.*/ig
     let menuNb
-
     if (motif.test(window.location.search)) {
         let motif = /[^.*obj=]$/ig
         menuNb = motif.exec(window.location.search)
@@ -95,6 +94,9 @@ function AfficheCarteCameraGrandFormat(camera) {
         console.log(menuNb)
         localStorage.setItem("objectif",JSON.stringify(menuNb))
     }
+    objectif = JSON.parse(localStorage.getItem('objectif'))
+    console.log("objectif1 : " + objectif)
+
     let nomH5 = document.createTextNode(camera['lenses'][menuNb])
     elementH5.appendChild(nomH5)
     elementDivCardBody.appendChild(elementH5)
@@ -119,6 +121,7 @@ function AfficheCarteCameraGrandFormat(camera) {
 }
 
 function AffichePanier(panier) {
+    let total = 0
     if (panier != null && panier.length > 0) {
         for (let index = 0; index < panier.length; index++) {        
             let elementTr = document.createElement('tr')
@@ -127,15 +130,13 @@ function AffichePanier(panier) {
             elementTd1.appendChild(elementId1)
 
             let elementTd2 = document.createElement('td')
-            let elementPrix = document.createTextNode(panier[index][1])
-            elementTd2.appendChild(elementPrix)
-
-            objectif = JSON.parse(localStorage.getItem('objectif'))
-            console.log("objectif : " + objectif)
+            let element = document.createTextNode(panier[index][2])
+            elementTd2.appendChild(element)
 
             let elementTd3 = document.createElement('td')
-            let element = document.createTextNode(objectif)
-            elementTd3.appendChild(element)
+            let prix = panier[index][1] /100 + ' €'
+            let elementPrix = document.createTextNode(prix)
+            elementTd3.appendChild(elementPrix)
         
             elementTr.appendChild(elementTd1)
             elementTr.appendChild(elementTd2)
@@ -143,8 +144,16 @@ function AffichePanier(panier) {
 
             let tbody = document.querySelector('tbody')
             tbody.appendChild(elementTr)
+
+            total += panier[index][1]
+            console.log(total)
         }
     }
+    let texte = document.createTextNode('Prix total : ' + total/100 + ' €')
+    console.log('texte = : ' + total)
+    let h5 = document.querySelector('h5')
+    h5.appendChild(texte)    
+
 }
 
 /*
