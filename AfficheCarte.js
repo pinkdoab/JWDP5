@@ -57,6 +57,8 @@ function AfficheCarteCameraPetitFormat(camera) {
 }
 
 function AfficheCarteCameraGrandFormat(camera) {
+    console.log(window.location.search)
+    console.log(camera)
 
     let elementDivCol = document.createElement('div')               //  <div class="col-8 align-self-center">
     elementDivCol.className = 'col-8 align-self-center'
@@ -74,13 +76,31 @@ function AfficheCarteCameraGrandFormat(camera) {
     elementDivCardBody.className = 'card-body'
     elementDivCard.appendChild(elementDivCardBody)    
 
-    let elementH5 = document.createElement('h5')                    //              <h5 class="card-title">Name</h5>
+    let elementH2 = document.createElement('h2')                    //              <h2 class="card-title">Name</h5>
+    elementH2.className = 'card-title'
+    let nomH2 = document.createTextNode(camera['name'])
+    elementH2.appendChild(nomH2)
+    elementDivCardBody.appendChild(elementH2)
+
+    let elementH5 = document.createElement('h5')                    //              <h5 class="card-title">Objectif</h5>
     elementH5.className = 'card-title'
-    let nomH5 = document.createTextNode(camera['name'])
+
+    let motif = /.*obj.*/ig
+    let menuNb
+
+    if (motif.test(window.location.search)) {
+        let motif = /[^.*obj=]$/ig
+        menuNb = motif.exec(window.location.search)
+        console.log(window.location.search)
+        console.log(menuNb)
+        localStorage.setItem("objectif",JSON.stringify(menuNb))
+    }
+    let nomH5 = document.createTextNode(camera['lenses'][menuNb])
     elementH5.appendChild(nomH5)
     elementDivCardBody.appendChild(elementH5)
 
-    let elementCommentaire = document.createElement('p')                  //              <p class="card-text">price €</p>
+
+    let elementCommentaire = document.createElement('p')            //              <p class="card-text">description</p>
     elementCommentaire.className = 'card-text'
     let nomCom = document.createTextNode(camera['description'])
     elementCommentaire.appendChild(nomCom)
@@ -109,9 +129,17 @@ function AffichePanier(panier) {
             let elementTd2 = document.createElement('td')
             let elementPrix = document.createTextNode(panier[index][1])
             elementTd2.appendChild(elementPrix)
+
+            objectif = JSON.parse(localStorage.getItem('objectif'))
+            console.log("objectif : " + objectif)
+
+            let elementTd3 = document.createElement('td')
+            let element = document.createTextNode(objectif)
+            elementTd3.appendChild(element)
         
             elementTr.appendChild(elementTd1)
             elementTr.appendChild(elementTd2)
+            elementTr.appendChild(elementTd3)
 
             let tbody = document.querySelector('tbody')
             tbody.appendChild(elementTr)
@@ -126,15 +154,21 @@ function AffichePanier(panier) {
     <a class="dropdown-item" href="#">Lentille C</a>
 */
 function CreaMenuLenses(catalogue_JSON) {
-    console.log('liste Objectifs : ' + catalogue_JSON['lenses'])
+
+    
+    //console.log('liste Objectifs : ' + catalogue_JSON['lenses'])
+    //console.log('liste Objectifs : ' + catalogue_JSON)
 
     let elementChoix = []    
     for (let index = 0; index < catalogue_JSON['lenses'].length; index++) {
         elementChoix = document.createElement('a')
+        //elementChoix.id = 'objectif' + index
         elementChoix.className = 'dropdown-item'
-        elementChoix.setAttribute('href', '#')
+        elementChoix.id = 'menu' + index
+        elementChoix.setAttribute('href', 'produit.html' + "?id=" + catalogue_JSON['_id'] + '?obj=' + index)
         elementChoix.appendChild(document.createTextNode(catalogue_JSON['lenses'][index]))
         let menuObjectif = document.querySelector('.menu_objectif')
         menuObjectif.appendChild(elementChoix)
     }
+
 }

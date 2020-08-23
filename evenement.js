@@ -10,10 +10,17 @@ if (boutonChoixProduit){
     })
 }
 
-const boutonEffacePanier2 = document.getElementById('boutonEffacePanier')
-if (boutonEffacePanier2){
-    boutonEffacePanier2.addEventListener('click', event => {				
+const boutonEffacePanier = document.getElementById('boutonEffacePanier')
+if (boutonEffacePanier){
+    boutonEffacePanier.addEventListener('click', event => {
         localStorage.clear();
-        window.location.reload();
+        location.reload()
+    })
+}
+
+const menuObjectif = document.getElementById('menuObjectif')
+if (menuObjectif){
+    menuObjectif.addEventListener('click', event => {
+        location.reload()
     })
 }
