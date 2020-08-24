@@ -1,14 +1,13 @@
+// Bouton "Enregistrer dans le panier" sur produit.html
 const boutonChoixProduit = document.getElementById('boutonChoixProduit')
 if (boutonChoixProduit){
-    boutonChoixProduit.addEventListener('click', event => {
-        let catalogueProduit = []
-        if(localStorage.getItem('liste')) {
-            catalogueProduit = JSON.parse(localStorage.getItem('liste'))
-        }      
-        catalogueProduit.push($_GET)
-        localStorage.setItem("liste",JSON.stringify(catalogueProduit))
-
-        //console.log("listeModif : " + JSON.parse(localStorage.getItem('liste')))
+    boutonChoixProduit.addEventListener('click', event => {   
+        let panier = JSON.parse(localStorage.getItem('panierLocal'))
+        let motif = /.*\?id=(.*)/ig
+        let idModif = motif.exec(window.location.search)
+        panier.push(idModif[1])
+        localStorage.setItem("panierLocal",JSON.stringify(panier))
+        console.log("localStockage panierLocal : " + JSON.parse(localStorage.getItem('panierLocal')))
     })
 }
 

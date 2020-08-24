@@ -7,11 +7,13 @@ description string
 imageUrl    string
 */
 
+// ________________________________________________________________
 function AfficheCatalogue(catalogue_JSON) {
     for (let camera in catalogue_JSON) {
         AfficheCarteCameraPetitFormat(catalogue_JSON[camera])        
     }
 }
+// ________________________________________________________________
 function AfficheCarteCameraPetitFormat(camera) {
 
     let elementDivCol = document.createElement('div')           //  <div class="col-4" style="padding: 10px;">
@@ -54,10 +56,10 @@ function AfficheCarteCameraPetitFormat(camera) {
     let section = document.querySelector('section')
     section.appendChild(elementDivCol)
 }
-
+// ________________________________________________________________
 function AfficheCarteCameraGrandFormat(camera) {
-    console.log(window.location.search)
-    console.log(camera)
+    //console.log(window.location.search)
+    //console.log(camera)
 
     let elementDivCol = document.createElement('div')               //  <div class="col-8 align-self-center">
     elementDivCol.className = 'col-8 align-self-center'
@@ -89,8 +91,8 @@ function AfficheCarteCameraGrandFormat(camera) {
     if (motif.test(window.location.search)) {
         let motif = /[^.*obj=]$/ig
         menuNb = motif.exec(window.location.search)
-        console.log(window.location.search)
-        console.log(menuNb)
+        //console.log(window.location.search)
+        //console.log(menuNb)
         localStorage.setItem("objectif",JSON.stringify(menuNb))
     }
     objectif = JSON.parse(localStorage.getItem('objectif'))
@@ -118,7 +120,7 @@ function AfficheCarteCameraGrandFormat(camera) {
     let section = document.querySelector('section')
     section.appendChild(elementDivCol)
 }
-
+// ________________________________________________________________
 function AffichePanier(panier) {
     let total = 0
     if (panier != null && panier.length > 0) {
@@ -154,7 +156,7 @@ function AffichePanier(panier) {
     h5.appendChild(texte)    
 
 }
-
+// ________________________________________________________________
 /*
 <div id="menu_objectif" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
     <a class="dropdown-item" href="#">Lentille A</a>
