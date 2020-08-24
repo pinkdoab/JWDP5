@@ -24,13 +24,28 @@ const menuObjectif = document.getElementById('menuObjectif')
 if (menuObjectif){
     menuObjectif.addEventListener('click', event => {
         location.reload()
+        Get3('http://localhost:3000/api/cameras')
     })
 }
 
 const boutonValidation = document.getElementById('boutonComfirmCommande')
 if (boutonValidation){
     boutonValidation.addEventListener('click', event => {
-        Get4('http://localhost:3000/api/cameras/order')
-        console.log("envoi requete")
+        event.preventDefault();
+        console.log("envoi requete DonneesValidees")
+        let contact = {
+            firstName : 'eeee',
+            lastName : 'zzzzz',
+            address : 'xxxxxx',
+            city : 'qqqqqq',
+            email : 'ffff@fff.fr'
+        }
+        let products = ["5be1ed3f1c9d44000030b061", "5be1ef211c9d44000030b062"]
+        let objet = {
+            contact,
+            products
+        }
+        let objetRequest = JSON.stringify(objet)
+        DonneesValidees(objetRequest)
     })
 }

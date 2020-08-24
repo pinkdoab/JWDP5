@@ -36,7 +36,7 @@ let Get3 = function (url) {
             //console.log('catalogue_JSON : ' + catalogue_JSON)
     
             var liste = JSON.parse(localStorage.getItem('liste'))
-            console.log("liste : " + liste)
+            //console.log("liste : " + liste)
             
             var panier = []
             if (liste) {
@@ -88,32 +88,46 @@ let Get3 = function (url) {
  * products: [string] <-- array of product _id
  */
 
-let Get4 = function (url) {
+let Get4444 = function (url) {
     let XHR = new XMLHttpRequest()
     console.log("erreur")
     XHR.onreadystatechange = function() {
+        console.log("onreadystatechange")
         if (this.readyState == 4 && this.status == 201) {
             console.log(JSON.parse(this.responseText))
+            //console.log(this.responseText)
         } else {
-            console.log(this.status)
+            console.log(this.readyState + "   " + this.status)
         }
     }
-    let contact = {
-        firstName : 'eeee',
-        lastName : 'zzzzz',
-        address : 'xxxxxx',
-        city : 'qqqqqq',
-        email : 'ffff@fff.fr'
-    }
-    let products = ["5be1ed3f1c9d44000030b061", "5be1ef211c9d44000030b062"]
-    let objet = {
-        contact,
-        products
-    }
-    let objetRequest = JSON.stringify(objet);
+
 
     XHR.open("POST", url, true)
-    //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     XHR.setRequestHeader("Content-Type", "application/json")
     XHR.send(objetRequest) 
 }
+
+// fonction requete POST
+DonneesValidees = (objetRequest) => {
+    //console.log(objetRequest);
+    return new Promise((resolve) => {
+        let request = new XMLHttpRequest();
+
+        
+        request.onreadystatechange = function() {
+            console.log("DonneesValidees " + this.readyState + "   " + this.status);
+            if(this.readyState == 4 && this.status == 201)
+            {
+                console.log(JSON.parse(this.responseText));
+                resolve(JSON.parse(this.responseText))
+                console.log("DonneesValidees3" + this.status);
+            }
+        };
+        
+        //request.open("GET", "http://localhost:3000/api/cameras");
+        request.open("POST", "http://localhost:3000/api/cameras/order");
+        request.setRequestHeader("Content-Type", "application/json");
+        request.send(objetRequest);
+    });
+};

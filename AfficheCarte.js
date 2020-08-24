@@ -146,11 +146,11 @@ function AffichePanier(panier) {
             tbody.appendChild(elementTr)
 
             total += panier[index][1]
-            console.log(total)
+            //console.log(total)
         }
     }
     let texte = document.createTextNode('Prix total : ' + total/100 + ' €')
-    console.log('texte = : ' + total)
+    //console.log('texte = : ' + total)
     let h5 = document.querySelector('h5')
     h5.appendChild(texte)    
 
