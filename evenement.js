@@ -20,14 +20,6 @@ if (boutonEffacePanier){
     })
 }
 
-const menuObjectif = document.getElementById('menuObjectif')
-if (menuObjectif){
-    menuObjectif.addEventListener('click', event => {
-        location.reload()
-        Get3('http://localhost:3000/api/cameras')
-    })
-}
-
 const boutonValidation = document.getElementById('boutonComfirmCommande')
 if (boutonValidation){
     boutonValidation.addEventListener('click', event => {

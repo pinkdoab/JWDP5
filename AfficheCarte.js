@@ -1,8 +1,3 @@
-function AfficheCatalogue(catalogue_JSON) {
-    for (let camera in catalogue_JSON) {
-        AfficheCarteCameraPetitFormat(catalogue_JSON[camera])        
-    }
-}
 /* Fonction permettant d'afficher sous forme de carte dans le DOM un produit "caméra" en JSON
 Champ       Type
 id          ObjectID
@@ -11,9 +6,13 @@ price       number
 description string
 imageUrl    string
 */
+
+function AfficheCatalogue(catalogue_JSON) {
+    for (let camera in catalogue_JSON) {
+        AfficheCarteCameraPetitFormat(catalogue_JSON[camera])        
+    }
+}
 function AfficheCarteCameraPetitFormat(camera) {
-
-
 
     let elementDivCol = document.createElement('div')           //  <div class="col-4" style="padding: 10px;">
     elementDivCol.className = 'col-4'

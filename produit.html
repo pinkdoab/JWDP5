@@ -29,8 +29,6 @@
                             <div id="menuObjectif" class="dropdown-menu menu_objectif">
                             </div>
                         </li>
-
-
                     </ul>
                 </div>
             </nav>       
@@ -57,10 +55,8 @@
         <!--script type="text/javascript" src="evenement.js"></script-->
 
         <script>
-            let motif = /[^\?id=].*/ig
-            let $_GET = motif.exec(window.location.search)
-            let url = "http://localhost:3000/api/cameras/" + $_GET
-            Get2(url)
+            requeteProduit()
+            Get3('http://localhost:3000/api/cameras')
         </script>
         <script type="text/javascript" src="evenement.js"></script>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

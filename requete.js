@@ -1,30 +1,67 @@
-let Get = function (url) {
-    let XHR = new XMLHttpRequest()
-
-    XHR.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            let catalogue_JSON = JSON.parse(this.responseText)
-            AfficheCatalogue(catalogue_JSON)
+function faireRequete (method, url) {
+    return new Promise(function (resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.open(method, url);
+      xhr.onload = function () {
+        if (this.status >= 200 && this.status < 300) {
+          resolve(xhr.response);
+        } else {
+          reject({
+            status: this.status,
+            statusText: xhr.statusText
+          });
         }
-    }
-    XHR.open("GET", url, true);
-    XHR.send();   
-}
+      };
+      xhr.onerror = function () {
+        reject({
+          status: this.status,
+          statusText: xhr.statusText
+        });
+      };
+      xhr.send();
+    });
+  }
+  
+  // Example:
+  
+  /*faireRequete('GET', 'http://example.com')
+  .then(function (datums) {
+    console.log(datums);
+  })
+  .catch(function (err) {
+    console.error('Aieee..., il y a une erreur!', err.statusText);
+  });*/
 // _____________________________________________________________________
 
-let Get2 = function (url) {
-    let XHR = new XMLHttpRequest()
-
-    XHR.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            let catalogue_JSON = JSON.parse(this.responseText)
-            CreaMenuLenses(catalogue_JSON)
-            AfficheCarteCameraGrandFormat(catalogue_JSON)         
-        }
-    }
-    XHR.open("GET", url, true);
-    XHR.send();   
+requeteCatalogue = function() {
+    faireRequete('GET', 'http://localhost:3000/api/cameras')
+    .then(function (catalogue) {
+        console.log(catalogue);
+        AfficheCatalogue(JSON.parse(catalogue))
+    })
+    .catch(function (err) {
+        console.error('Aieee..., il y a une erreur!', err.statusText);
+    });
 }
+// _____________________________________________________________________
+requeteProduit = function() {
+    let motif = /[^\?id=].*/ig
+    let $_GET = motif.exec(window.location.search)
+    console.log("$_GET : " + $_GET)
+    let url = 'http://localhost:3000/api/cameras/' + $_GET
+    console.log("url : " + url)
+    faireRequete('GET', url)
+    .then(function (catalogue) {
+        let catalogue_JSON = JSON.parse(catalogue)
+        CreaMenuLenses(catalogue_JSON)
+        AfficheCarteCameraGrandFormat(catalogue_JSON)
+    })
+    .catch(function (err) {
+        console.error('Aieee..., il y a une erreur!', err.statusText);
+    });
+}
+
+
 // _____________________________________________________________________
 
 let Get3 = function (url) {
@@ -88,7 +125,7 @@ let Get3 = function (url) {
  * products: [string] <-- array of product _id
  */
 
-let Get4444 = function (url) {
+let Get4 = function (url) {
     let XHR = new XMLHttpRequest()
     console.log("erreur")
     XHR.onreadystatechange = function() {
