@@ -46,7 +46,7 @@ if (boutonEffacePanier){
 const boutonValidation = document.getElementById('boutonComfirmCommande')
 if (boutonValidation){
     boutonValidation.addEventListener('click', event => {
-        //event.preventDefault();
+        event.preventDefault();
         console.log("envoi requete DonneesValidees")
         let contact = {
             firstName : 'eeee',
@@ -61,6 +61,6 @@ if (boutonValidation){
             products
         }
         let objetRequest = JSON.stringify(objet)
-        DonneesValidees(objetRequest)
+        DonneesValidees2(objetRequest)
     })
 }

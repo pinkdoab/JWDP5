@@ -95,16 +95,10 @@ function AfficheCarteCameraGrandFormat(camera) {
         boutonChoixProduit.classList.remove("disabled")
         boutonChoixProduit.innerHTML = 'Enregistrez ce produit dans votre panier'
 
-
-        //localStorage.setItem("objectif",JSON.stringify(menuNb))
+        let nomH5 = document.createTextNode(camera['lenses'][menuNb])
+        elementH5.appendChild(nomH5)
+        elementDivCardBody.appendChild(elementH5)
     }
-    //objectif = JSON.parse(localStorage.getItem('objectif'))
-    //console.log("objectif1 : " + objectif)
-
-    let nomH5 = document.createTextNode(camera['lenses'][menuNb])
-    elementH5.appendChild(nomH5)
-    elementDivCardBody.appendChild(elementH5)
-
 
     let elementCommentaire = document.createElement('p')            //              <p class="card-text">description</p>
     elementCommentaire.className = 'card-text'
@@ -129,35 +123,41 @@ function AffichePanier(panier) {
     if (panier != null && panier.length > 0) {
         for (let index = 0; index < panier.length; index++) {        
             let elementTr = document.createElement('tr')
+
             let elementTd1 = document.createElement('td')
             let elementId1 = document.createTextNode(panier[index][0])
             elementTd1.appendChild(elementId1)
+            elementTr.appendChild(elementTd1)
 
             let elementTd2 = document.createElement('td')
             let element = document.createTextNode(panier[index][2])
             elementTd2.appendChild(element)
+            elementTr.appendChild(elementTd2)
 
             let elementTd3 = document.createElement('td')
             let prix = panier[index][1] /100 + ' €'
             let elementPrix = document.createTextNode(prix)
             elementTd3.appendChild(elementPrix)
-        
-            elementTr.appendChild(elementTd1)
-            elementTr.appendChild(elementTd2)
             elementTr.appendChild(elementTd3)
+
+            /*let elementTd4 = document.createElement('td')
+            //<button id="boutonEffacePanier" class="btn btn-primary">Effacer le panier</button>
+            let bouton = document.createElement('button')               //  <div class="col-8 align-self-center">
+            bouton.className = 'btn btn-primary'
+            let bouton = panier[index][1] /100 + ' €'
+            let elementPrix2 = document.createTextNode(prix2)
+            elementTd4.appendChild(elementPrix2)
+            elementTr.appendChild(elementTd4)*/
 
             let tbody = document.querySelector('tbody')
             tbody.appendChild(elementTr)
 
             total += panier[index][1]
-            //console.log(total)
         }
+        let texte = document.createTextNode('Prix total : ' + total/100 + ' €')
+        let h5 = document.querySelector('h5')
+        h5.appendChild(texte) 
     }
-    let texte = document.createTextNode('Prix total : ' + total/100 + ' €')
-    //console.log('texte = : ' + total)
-    let h5 = document.querySelector('h5')
-    h5.appendChild(texte)    
-
 }
 // ________________________________________________________________
 /*
@@ -168,14 +168,9 @@ function AffichePanier(panier) {
 */
 function CreaMenuLenses(catalogue_JSON) {
 
-    
-    //console.log('liste Objectifs : ' + catalogue_JSON['lenses'])
-    //console.log('liste Objectifs : ' + catalogue_JSON)
-
     let elementChoix = []    
     for (let index = 0; index < catalogue_JSON['lenses'].length; index++) {
         elementChoix = document.createElement('a')
-        //elementChoix.id = 'objectif' + index
         elementChoix.className = 'dropdown-item'
         elementChoix.id = 'menu' + index
         elementChoix.setAttribute('href', 'produit.html' + "?id=" + catalogue_JSON['_id'] + '?obj=' + index)
@@ -183,5 +178,4 @@ function CreaMenuLenses(catalogue_JSON) {
         let menuObjectif = document.querySelector('.menu_objectif')
         menuObjectif.appendChild(elementChoix)
     }
-
 }

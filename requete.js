@@ -1,7 +1,6 @@
 function faireRequete (method, url) {
     return new Promise(function (resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      //console.log('url2 = : ' + url)
+    var xhr = new XMLHttpRequest();
       xhr.open(method, url)
       xhr.onload = function () {
         if (this.status >= 200 && this.status < 300) {
@@ -35,8 +34,6 @@ requeteCatalogue = function() {
 }
 // _____________________________________________________________________
 requeteProduit = function() {
-    //let motif = /[^\?id=].*/ig
-
     let motif = /.*id=(.*)\?obj=.*/ig
     let $_GET
     if (!motif.test(window.location.search)) {
@@ -46,11 +43,7 @@ requeteProduit = function() {
         let motif = /.*id=(.*)\?obj=.*/ig
         $_GET = motif.exec(window.location.search)       
     }
-    //let $_GET = motif.exec(window.location.search)
-    //console.log($_GET[1])
-    //let GET = $_GET[1]
     let url = 'http://localhost:3000/api/cameras/' + $_GET[1]
-    //console.log('url = : ' + url)
 
     faireRequete('GET', url)
     .then(function (produit) {
@@ -114,23 +107,6 @@ let Get3 = function (url) {
  * products: [string] <-- array of product _id
  */
 
-let Get4 = function (url) {
-    let XHR = new XMLHttpRequest()
-    console.log("erreur")
-    XHR.onreadystatechange = function() {
-        console.log("onreadystatechange")
-        if (this.readyState == 4 && this.status == 201) {
-            console.log(JSON.parse(this.responseText))
-            //console.log(this.responseText)
-        } else {
-            console.log(this.readyState + "   " + this.status)
-        }
-    }
-    XHR.open("POST", url, true)
-    XHR.setRequestHeader("Content-Type", "application/json")
-    XHR.send(objetRequest) 
-}
-
 // fonction requete POST
 DonneesValidees = (objetRequest) => {
     return new Promise((resolve) => {
@@ -152,3 +128,40 @@ DonneesValidees = (objetRequest) => {
         request.send(objetRequest);
     });
 };
+// __________________________________________________________
+function faireRequetePOST (method, url, objetRequest) {
+    return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+      xhr.open(method, url)
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onload = function () {
+        if (this.status >= 200 && this.status < 300) {
+          resolve(xhr.response);
+        } else {
+          reject({
+            status: this.status,
+            statusText: xhr.statusText
+          })
+        }
+      }
+      xhr.onerror = function () {
+        reject({
+          status: this.status,
+          statusText: xhr.statusText
+        })
+      }
+      xhr.send(objetRequest)
+    })
+}
+DonneesValidees2 = function(objetRequest) {
+    console.log('objetRequest : ' + objetRequest)
+    faireRequetePOST('POST', 'http://localhost:3000/api/cameras/order', objetRequest)
+    .then(function(catalogue) {
+
+        console.log(catalogue);
+        //console.log("DonneesValidees3" + catalogue);
+    })
+    .catch(function (err) {
+        console.error('Aieee..., il y a une erreur!', err.statusText)
+    });
+}
