@@ -1,15 +1,17 @@
-localStorage.setItem('confirmation', JSON.stringify([]))
+
 
 //lire stockageLocal
 
-if (!localStorage.getItem('panierLocal')) {
-    console.log("log preparation.js : le panier \"panierLocal\" n\'existe pas dans le localStorage.")
-    console.log("log preparation.js : Création d\'un panier \"panierLocal\" dans le localStorage.")
+/*if (!localStorage.getItem('panierLocal')) {
     localStorage.setItem('panierLocal', JSON.stringify([]))
-
+    console.log("log preparation.js : Création d\'un panier \"panierLocal\" dans le localStorage.")
 } else {
-    console.log("log preparation.js : le panier \"panierLocal\" existe dans le localStorage")
     for (let i = 0; i < localStorage.length; i++) {
-        console.log('log preparation.js : ' + localStorage.key(i) + ' = ' + localStorage.getItem(localStorage.key(i)))    
+        console.log('log preparation.js : localStorage => ' + localStorage.key(i) + ' = ' + localStorage.getItem(localStorage.key(i)))    
     }
-}
+}*/
+/*if (localStorage.getItem('confirmation')) {
+    localStorage.setItem('confirmation', JSON.stringify([]))
+    localStorage.setItem('panierLocal', JSON.stringify([]))
+    console.log("log preparation.js : Création d\'un panier nouveau \"panierLocal\" dans le localStorage suite à une commande déjà passée.")
+}*/

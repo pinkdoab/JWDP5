@@ -51,7 +51,7 @@ requeteProduit = function() {
 
     faireRequete('GET', url)
     .then(function (produit) {
-        CreaMenuLenses(JSON.parse(produit))
+        CreaMenuOption(JSON.parse(produit))
         AfficheCarteCameraGrandFormat(JSON.parse(produit))
     })
     .catch(function (err) {
@@ -64,7 +64,7 @@ requetePanier = function() {
     faireRequete('GET', url)
     .then(function (catalogue) {
         let catalogue_JSON = (JSON.parse(catalogue))
-        var liste = JSON.parse(localStorage.getItem('panierLocal'))            
+        var liste = JSON.parse(localStorage.getItem('panierLocal'))
         var panier = []
         if (liste) {
             liste.forEach(eltcamera => {
@@ -97,18 +97,11 @@ requetePanier = function() {
 }
 // ___________________________________________________________
 // fonction requete POST
-
 RequeteComfirm = function(objetRequest) {
     faireRequete('POST', 'http://localhost:3000/api/cameras/order', objetRequest)
     .then(function(confirmation) {
-        console.log(confirmation);
-
-        //localStorage.setItem("confirmation",JSON.stringify(confirmation))
         localStorage.setItem("confirmation",confirmation)
-        console.log("confirmation1 : " + JSON.parse(localStorage.getItem('confirmation')))
-
         document.location.href="file:///Users/pink01/Documents/git/JWDP5/confirmation.html";
-
     })
     .catch(function (err) {
         console.error('Aieee..., il y a une erreur!', err.statusText)
