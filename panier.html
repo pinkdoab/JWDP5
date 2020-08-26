@@ -69,7 +69,7 @@
 					<div class="form-row">
 						<div class="col">
 							<!--input type="text" class="form-control" placeholder="Nom" required pattern=".{2,30}" title="Au moins deux caractères"-->
-							<input type="text" class="form-control" placeholder="Nom">
+							<input id="nom" type="text" class="form-control" placeholder="Nom">
 						</div>
 						<div class="col">
 							<!--input type="text" class="form-control" placeholder="Prenom"  required pattern=".{2,30}" title="Au moins deux caractères"-->
@@ -108,7 +108,7 @@
 		<script type="text/javascript" src="AfficheCarte.js"></script>
 
 		<script>
-			Get3('http://localhost:3000/api/cameras')
+			requetePanier()
 		</script>
 
 

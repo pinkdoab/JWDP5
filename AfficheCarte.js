@@ -179,3 +179,11 @@ function CreaMenuLenses(catalogue_JSON) {
         menuObjectif.appendChild(elementChoix)
     }
 }
+function AfficheIdCommande() {
+    let id = JSON.parse(localStorage.getItem('confirmation'))
+    console.log('id : ' + id.orderId)
+
+    let commande = document.querySelector('h4')
+    commande.innerHTML = id.orderId
+
+}

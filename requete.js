@@ -1,7 +1,11 @@
-function faireRequete (method, url) {
+//faireRequete('GET', 'http://localhost:3000/api/cameras')
+//faireRequete('POST', 'http://localhost:3000/api/cameras/order', objetRequest)
+
+function faireRequete (method, url, objetRequest) {
     return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
       xhr.open(method, url)
+      xhr.setRequestHeader("Content-Type", "application/json");
       xhr.onload = function () {
         if (this.status >= 200 && this.status < 300) {
           resolve(xhr.response);
@@ -18,7 +22,7 @@ function faireRequete (method, url) {
           statusText: xhr.statusText
         })
       }
-      xhr.send()
+      xhr.send(objetRequest)
     })
 }
 // _____________________________________________________________________
@@ -55,111 +59,56 @@ requeteProduit = function() {
     });
 }
 // _____________________________________________________________________
-// Affiche tab panier
-let Get3 = function (url) {
-    let XHR = new XMLHttpRequest()
-
-    XHR.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            let catalogue_JSON = JSON.parse(this.responseText)
-            var liste = JSON.parse(localStorage.getItem('panierLocal'))            
-            var panier = []
-            if (liste) {
-                liste.forEach(eltcamera => {
-                    let motif = /.*obj.*/ig
-                    let idModif = eltcamera
-                    let obj = 0
-                    if (motif.test(eltcamera)) {
-                        let motif = /(.*)\?obj=(.)/ig
-                        idModif = motif.exec(eltcamera)                  
-                        eltcamera = idModif[1]
-                        obj = idModif[2]
+requetePanier = function() {
+    let url = 'http://localhost:3000/api/cameras'
+    faireRequete('GET', url)
+    .then(function (catalogue) {
+        let catalogue_JSON = (JSON.parse(catalogue))
+        var liste = JSON.parse(localStorage.getItem('panierLocal'))            
+        var panier = []
+        if (liste) {
+            liste.forEach(eltcamera => {
+                let motif = /.*obj.*/ig
+                let idModif = eltcamera
+                let obj = 0
+                if (motif.test(eltcamera)) {
+                    let motif = /(.*)\?obj=(.)/ig
+                    idModif = motif.exec(eltcamera)                  
+                    eltcamera = idModif[1]
+                    obj = idModif[2]
+                }
+                var elt = []
+                catalogue_JSON.forEach(element => {
+                    if (eltcamera == element['_id']) {
+                        let cam = []
+                        cam.push(element['name'])
+                        cam.push(element['price'])
+                        cam.push(element['lenses'][obj])
+                        panier.push(cam)
                     }
-
-                    var elt = []
-                    catalogue_JSON.forEach(element => {
-                        if (eltcamera == element['_id']) {
-                            let cam = []
-                            cam.push(element['name'])
-                            cam.push(element['price'])
-                            cam.push(element['lenses'][obj])
-                            panier.push(cam)
-                        }
-                    })
                 })
-                AffichePanier(panier)
-            }
-        } 
-    }
-    XHR.open("GET", url, true);
-    XHR.send();
+            })
+            AffichePanier(panier)
+        }
+    })
+    .catch(function (err) {
+        console.error('Aieee..., il y a une erreur!', err.statusText)
+    });
 }
 // ___________________________________________________________
-
-/* Expects request to contain:
- * contact: {
- *   firstName: string,
- *   lastName: string,
- *   address: string,
- *   city: string,
- *   email: string
- * }
- * products: [string] <-- array of product _id
- */
-
 // fonction requete POST
-DonneesValidees = (objetRequest) => {
-    return new Promise((resolve) => {
-        let request = new XMLHttpRequest();
 
-        
-        request.onreadystatechange = function() {
-            console.log("DonneesValidees " + this.readyState + "   " + this.status);
-            if(this.readyState == 4 && this.status == 201)
-            {
-                console.log(JSON.parse(this.responseText));
-                resolve(JSON.parse(this.responseText))
-                console.log("DonneesValidees3" + this.status);
-            }
-        };
-        
-        request.open("POST", "http://localhost:3000/api/cameras/order");
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(objetRequest);
-    });
-};
-// __________________________________________________________
-function faireRequetePOST (method, url, objetRequest) {
-    return new Promise(function (resolve, reject) {
-    var xhr = new XMLHttpRequest();
-      xhr.open(method, url)
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.onload = function () {
-        if (this.status >= 200 && this.status < 300) {
-          resolve(xhr.response);
-        } else {
-          reject({
-            status: this.status,
-            statusText: xhr.statusText
-          })
-        }
-      }
-      xhr.onerror = function () {
-        reject({
-          status: this.status,
-          statusText: xhr.statusText
-        })
-      }
-      xhr.send(objetRequest)
-    })
-}
-DonneesValidees2 = function(objetRequest) {
-    console.log('objetRequest : ' + objetRequest)
-    faireRequetePOST('POST', 'http://localhost:3000/api/cameras/order', objetRequest)
-    .then(function(catalogue) {
+RequeteComfirm = function(objetRequest) {
+    faireRequete('POST', 'http://localhost:3000/api/cameras/order', objetRequest)
+    .then(function(confirmation) {
+        console.log(confirmation);
 
-        console.log(catalogue);
-        //console.log("DonneesValidees3" + catalogue);
+        //localStorage.setItem("confirmation",JSON.stringify(confirmation))
+        localStorage.setItem("confirmation",confirmation)
+        console.log("confirmation1 : " + JSON.parse(localStorage.getItem('confirmation')))
+
+        document.location.href="file:///Users/pink01/Documents/git/JWDP5/confirmation.html";
+
     })
     .catch(function (err) {
         console.error('Aieee..., il y a une erreur!', err.statusText)
