@@ -1,6 +1,7 @@
 function faireRequete (method, url) {
     return new Promise(function (resolve, reject) {
       var xhr = new XMLHttpRequest();
+      //console.log('url2 = : ' + url)
       xhr.open(method, url)
       xhr.onload = function () {
         if (this.status >= 200 && this.status < 300) {
@@ -34,9 +35,22 @@ requeteCatalogue = function() {
 }
 // _____________________________________________________________________
 requeteProduit = function() {
-    let motif = /[^\?id=].*/ig
-    let $_GET = motif.exec(window.location.search)
-    let url = 'http://localhost:3000/api/cameras/' + $_GET
+    //let motif = /[^\?id=].*/ig
+
+    let motif = /.*id=(.*)\?obj=.*/ig
+    let $_GET
+    if (!motif.test(window.location.search)) {
+        let motif = /.*id=(.*)/ig
+        $_GET = motif.exec(window.location.search)        
+    } else {
+        let motif = /.*id=(.*)\?obj=.*/ig
+        $_GET = motif.exec(window.location.search)       
+    }
+    //let $_GET = motif.exec(window.location.search)
+    //console.log($_GET[1])
+    //let GET = $_GET[1]
+    let url = 'http://localhost:3000/api/cameras/' + $_GET[1]
+    //console.log('url = : ' + url)
 
     faireRequete('GET', url)
     .then(function (produit) {

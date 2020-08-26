@@ -1,7 +1,20 @@
 // Bouton "Enregistrer dans le panier" sur produit.html
 const boutonChoixProduit = document.getElementById('boutonChoixProduit')
+//boutonChoixProduit.classList.add("disabled")
+//boutonChoixProduit.innerHTML = 'Enregistrez ce produit dans votre panier'
+
 if (boutonChoixProduit){
-    boutonChoixProduit.addEventListener('click', event => {   
+    boutonChoixProduit.addEventListener('click', event => {
+
+
+        /*let motif2 = /.*obj=(.*)/i
+        if (motif2.test(window.location.search)) {
+            let a = motif2.exec(window.location.search)
+            console.log('obj : ' + a[1])
+        }*/
+
+
+
         let panier = JSON.parse(localStorage.getItem('panierLocal'))
         let motif = /.*\?id=(.*)/ig
         let idModif = motif.exec(window.location.search)
@@ -11,9 +24,20 @@ if (boutonChoixProduit){
     })
 }
 
+/*const menuPersonnalisation = document.getElementById('menuObjectif')
+if (menuPersonnalisation){
+    menuPersonnalisation.addEventListener('click', event => {
+        //event.preventDefault();
+        boutonChoixProduit.classList.remove("disabled")
+        boutonChoixProduit.innerHTML = 'Enregistrez ce produit dans votre panier'
+
+    })
+}*/
+
 const boutonEffacePanier = document.getElementById('boutonEffacePanier')
 if (boutonEffacePanier){
     boutonEffacePanier.addEventListener('click', event => {
+        event.preventDefault();
         localStorage.clear();
         location.reload()
     })
@@ -22,7 +46,7 @@ if (boutonEffacePanier){
 const boutonValidation = document.getElementById('boutonComfirmCommande')
 if (boutonValidation){
     boutonValidation.addEventListener('click', event => {
-        event.preventDefault();
+        //event.preventDefault();
         console.log("envoi requete DonneesValidees")
         let contact = {
             firstName : 'eeee',

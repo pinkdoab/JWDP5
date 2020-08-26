@@ -91,12 +91,15 @@ function AfficheCarteCameraGrandFormat(camera) {
     if (motif.test(window.location.search)) {
         let motif = /[^.*obj=]$/ig
         menuNb = motif.exec(window.location.search)
-        //console.log(window.location.search)
-        //console.log(menuNb)
-        localStorage.setItem("objectif",JSON.stringify(menuNb))
+        let boutonChoixProduit = document.getElementById('boutonChoixProduit')
+        boutonChoixProduit.classList.remove("disabled")
+        boutonChoixProduit.innerHTML = 'Enregistrez ce produit dans votre panier'
+
+
+        //localStorage.setItem("objectif",JSON.stringify(menuNb))
     }
-    objectif = JSON.parse(localStorage.getItem('objectif'))
-    console.log("objectif1 : " + objectif)
+    //objectif = JSON.parse(localStorage.getItem('objectif'))
+    //console.log("objectif1 : " + objectif)
 
     let nomH5 = document.createTextNode(camera['lenses'][menuNb])
     elementH5.appendChild(nomH5)
