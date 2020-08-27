@@ -2,7 +2,7 @@
 // Appel de TOUS les produits du catalogue JSON pour les afficher
 
 function AfficheCatalogue(catalogue_JSON) {
-    if (catalogue_JSON.length == 0) {throw 'AfficheCarte.js : catalogue_JSON vide'}
+    if (catalogue_JSON.length == 0) {throw 'AfficheCarte.js : catalogue_JSON vide'}             // test
     for (let camera in catalogue_JSON) {
         AfficheCarteCameraPetitFormat(catalogue_JSON[camera])
     }
@@ -12,8 +12,7 @@ function AfficheCatalogue(catalogue_JSON) {
 function AfficheCarteCameraPetitFormat(camera) {
 
     let elementDivCol = document.createElement('div')           //  <div class="col-4" style="padding: 10px;">
-    elementDivCol.className = 'col-4'
-    //elementDivCol.setAttribute("style", "padding: 10px;");
+    elementDivCol.className = 'col-4 carte_padding'
 
     let elementDivCard = document.createElement('div')          //      <div class="card">
     elementDivCard.className = 'card'
@@ -54,7 +53,7 @@ function AfficheCarteCameraPetitFormat(camera) {
 function AfficheCarteCameraGrandFormat(camera) {
 
     let elementDivCol = document.createElement('div')               //  <div class="col-8 align-self-center">
-    elementDivCol.className = 'col-8 align-self-center'
+    elementDivCol.className = 'col'
 
     let elementDivCard = document.createElement('div')              //      <div class="card">
     elementDivCard.className = 'card'
@@ -110,10 +109,11 @@ function AfficheCarteCameraGrandFormat(camera) {
     section.appendChild(elementDivCol)
 }
 // ________________________________________________________________
-function AffichePanier(panier) {
+function AffichePanier(panier, page) {
     
+    let boutonEffaceProduit
     let total = 0
-    if (panier != null && panier.length > 0) {
+    if (panier != null && panier.length > 0) {                                          // test
         for (let index = 0; index < panier.length; index++) {        
             let elementTr = document.createElement('tr')
 
@@ -133,23 +133,39 @@ function AffichePanier(panier) {
             elementTd3.appendChild(elementPrix)
             elementTr.appendChild(elementTd3)
 
-            /*let elementTd4 = document.createElement('td')
-            //<button id="boutonEffacePanier" class="btn btn-primary">Effacer le panier</button>
-            let bouton = document.createElement('button')               //  <div class="col-8 align-self-center">
-            bouton.className = 'btn btn-primary'
-            let bouton = panier[index][1] /100 + ' €'
-            let elementPrix2 = document.createTextNode(prix2)
-            elementTd4.appendChild(elementPrix2)
-            elementTr.appendChild(elementTd4)*/
+            if (page == 'produit' ) {
+                let elementTd4 = document.createElement('td')
+                let bouton = document.createElement('button')               //  <div class="col-8 align-self-center">
+                bouton.className = 'btn btn-primary interactiveBouton'
+                let idBouton = "idBouton" + index
+                bouton.id = idBouton
+                let textebouton = document.createTextNode("Effacer le produit")
+                bouton.appendChild(textebouton)
+                elementTd4.appendChild(bouton)
+                elementTr.appendChild(elementTd4)                       
+            }
 
             let tbody = document.querySelector('tbody')
             tbody.appendChild(elementTr)
-
             total += panier[index][1]
-        }
+        } 
         let texte = document.createTextNode('Prix total : ' + total/100 + ' €')
         let h5 = document.querySelector('h5')
-        h5.appendChild(texte) 
+        h5.appendChild(texte)
+
+        var theButtons = document.querySelectorAll('.interactiveBouton')
+        for (let i = 0; i < theButtons.length; i++) {
+            theButtons[i].addEventListener('click', function () {
+                let liste = JSON.parse(localStorage.getItem('panierLocal'))
+                if (liste != 0) {
+                    liste.splice(theButtons[i].id.substring(8), 1)
+                    localStorage.setItem("panierLocal",JSON.stringify(liste))
+                    location.reload()
+                }
+            });
+        }
+    } else {
+        throw 'AfficheCarte.js : panier est vide'                                                 // test
     }
 }
 // ________________________________________________________________

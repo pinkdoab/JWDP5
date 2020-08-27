@@ -19,8 +19,11 @@ const boutonEffacePanier = document.getElementById('boutonEffacePanier')
 if (boutonEffacePanier){
     boutonEffacePanier.addEventListener('click', event => {
         event.preventDefault();
-        localStorage.clear();
-        location.reload()
+        let liste = JSON.parse(localStorage.getItem('panierLocal'))
+        if (liste != 0) {
+            localStorage.clear();
+            location.reload()
+        }
     })
 }
 
@@ -28,30 +31,40 @@ if (boutonEffacePanier){
 const boutonValidation = document.getElementById('boutonComfirmCommande')
 if (boutonValidation){
     boutonValidation.addEventListener('click', event => {
-        event.preventDefault();
-        var nom = document.getElementById("nom").value;
-        let contact = {
-            firstName : nom,
-            lastName : 'zzzzz',
-            address : 'xxxxxx',
-            city : 'qqqqqq',
-            email : 'ffff@fff.fr'
-        }
         var liste = JSON.parse(localStorage.getItem('panierLocal'))
-        console.log('liste : ' + liste)
-        let prod = []
-        let a
-        liste.forEach(element => {
-            a = element.split("?")
-            prod.push(a[0])
-        });
-        let products = prod
-        console.log('products : ' + products)
-        let objet = {
-            contact,
-            products
+        if (liste != null && liste != 0 ) {
+            event.preventDefault()
+            let formValide = true
+            let nom = ''
+            if (document.getElementById("nom").value != '') {
+                nom = document.getElementById("nom").value
+            } else {
+                formValide = false
+            }
+            
+            let contact = {
+                firstName : nom,
+                lastName : 'zzzzz',
+                address : 'xxxxxx',
+                city : 'qqqqqq',
+                email : 'ffff@fff.fr'
+            }
+
+            let prod = []
+            let a
+            liste.forEach(element => {
+                a = element.split("?")
+                prod.push(a[0])
+            });
+            let products = prod
+            let objet = {
+                contact,
+                products
+            }
+            if (formValide == true) {
+                let objetRequest = JSON.stringify(objet)
+                RequeteComfirm(objetRequest)
+            }
         }
-        let objetRequest = JSON.stringify(objet)
-        RequeteComfirm(objetRequest)
     })
 }

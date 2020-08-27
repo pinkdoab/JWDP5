@@ -13,3 +13,20 @@ li {
 .navbar-brand {
     margin-left: 12px;
 }
+.carte_padding {
+    padding: 10px;
+}
+.carte_margin {
+    margin: 10px;
+}
+.largeurGrandeCarte {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+.formValidation {
+    margin-top: 15px;    
+}
+.formTitre {
+    margin-top: 30px;
+}

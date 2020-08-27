@@ -41,18 +41,12 @@ function faireRequete (method, url, objetRequest) {
         lenses (contient un Array de noms d'objectifs)
         imageUrl
 */
-
 requeteCatalogue = function() {
     faireRequete('GET', 'http://localhost:3000/api/cameras')
     .then(function (catalogue) {
-
-        if (JSON.parse(localStorage.getItem('confirmation'))) {
+        if (JSON.parse(localStorage.getItem('confirmation'))) {         // Efface le localstorage si la commande est passé
             localStorage.clear();
-            console.log("OK")
         }
-
-
-
         AfficheCatalogue(JSON.parse(catalogue))                         // retour Ok
     })
     .catch(function (err) {
@@ -72,15 +66,22 @@ requeteCatalogue = function() {
         imageUrl
 */
 requeteProduit = function() {
-    let motif = /.*id=(.*)\?obj=.*/ig
+
+    let $_GET
+    if (!/.*id=(.*)\?obj=.*/ig.test(window.location.search)) {
+        $_GET = /.*id=(.*)/ig.exec(window.location.search)        
+    } else {
+        $_GET = /.*id=(.*)\?obj=.*/ig.exec(window.location.search)       
+    }
+    /*let motif = /.*id=(.*)\?obj=.*/ /*ig
     let $_GET
     if (!motif.test(window.location.search)) {
         let motif = /.*id=(.*)/ig
         $_GET = motif.exec(window.location.search)        
     } else {
-        let motif = /.*id=(.*)\?obj=.*/ig
+        let motif = /.*id=(.*)\?obj=.*/ /*ig
         $_GET = motif.exec(window.location.search)       
-    }
+    }*/
     let url = 'http://localhost:3000/api/cameras/' + $_GET[1]
 
     faireRequete('GET', url)
@@ -97,14 +98,14 @@ requeteProduit = function() {
     Fonction appel l'affichage du panier suivant les données du catalogue venant du serveur et le localStockage
 
 */
-requetePanier = function() {
+requetePanier = function(page) {
     let url = 'http://localhost:3000/api/cameras'
     faireRequete('GET', url)
     .then(function (catalogue) {
         let catalogue_JSON = (JSON.parse(catalogue))
         var panierLocal = JSON.parse(localStorage.getItem('panierLocal'))
         var panierAfficher = []
-        if (panierLocal) {
+        if (panierLocal != null && panierLocal != 0 ) {
             panierLocal.forEach(eltcamera => {
                 let motif = /.*obj.*/ig
                 let idModif = eltcamera
@@ -126,7 +127,7 @@ requetePanier = function() {
                     }
                 })
             })
-            AffichePanier(panierAfficher)
+            AffichePanier(panierAfficher, page)
         }
     })
     .catch(function (err) {

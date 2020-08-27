@@ -58,7 +58,7 @@
 		</div>
 	</div>
 		<div class="row text-center">
-			<div class="col">
+			<div class="col formTitre">
 				<h4>Formulaire de commande</h4> 
 			</div>
 		</div>
@@ -67,39 +67,42 @@
 			<div class="col align-self-center">
 				<form id="formumaire">
 					<div class="form-row">
-						<div class="col">
-							<!--input type="text" class="form-control" placeholder="Nom" required pattern=".{2,30}" title="Au moins deux caractères"-->
-							<input id="nom" type="text" class="form-control" placeholder="Nom">
+						<div class="col formValidation">
+							<input id="nom" type="text" class="form-control" placeholder="Nom" required pattern="^[a-zA-Z_-]+( [a-zA-Z_-]+)*$" title="Que des lettres, un espace entre chaque mot, un signe _ ou le signe -">
 						</div>
-						<div class="col">
-							<!--input type="text" class="form-control" placeholder="Prenom"  required pattern=".{2,30}" title="Au moins deux caractères"-->
+						<div class="col formValidation">
+							<!--input type="text" class="form-control" placeholder="Prenom"  required pattern="^[a-zA-Z_-]+( [a-zA-Z_-]+)*$" title="Que des lettres, un espace entre chaque mot, un signe _ ou le signe -"-->
 							<input type="text" class="form-control" placeholder="Prenom">
 						</div>
 					</div>
 
 					<div class="form-row">
-						<div class="col">
+						<div class="col formValidation">
 							<label for="inputAdresse">Adresse</label>
-							<!--input type="text" class="form-control" placeholder="2, avenue Ben Salha"  required pattern=".{2,30}" title="Au moins deux caractères"-->
+							<!--input type="text" class="form-control" placeholder="2, avenue Ben Salha"  required pattern="^[a-zA-Z0-9_-]+( [a-zA-Z0-9_-]+)*$"Que des lettres, des chiffres, un espace entre chaque mot, un signe _ ou le signe -"-->
 							<input type="text" class="form-control" placeholder="2, avenue Ben Salha">
 						</div>
 					</div>
 
 					<div class="form-row">
-						<div class="col">
+						<div class="col formValidation">
 							<label for="inputVille">Ville</label>
-							<!--input type="text" class="form-control" placeholder="Tokyo"  required pattern=".{2,30}" title="Au moins deux caractères"-->
+							<!--input type="text" class="form-control" placeholder="Tokyo"  required pattern="^[a-zA-Z_-]+( [a-zA-Z_-]+)*$" title="Que des lettres, un espace entre chaque mot, un signe _ ou le signe -"-->
 							<input type="text" class="form-control" placeholder="Tokyo">
 						</div>
-						<div class="col">
+						<div class="col formValidation">
 							<label for="inputEmail">Email</label>
 							<!--input type="email" class="form-control" placeholder="pink@gmail.fr" required-->
 							<input type="email" class="form-control" placeholder="pink@gmail.fr">
 						</div>
 					</div>
-					<input id="boutonComfirmCommande" class="btn btn-primary" type="submit" name="Confirmation" value="Confirmation de votre commande">
-					<!--button id="boutonComfirmCommande" class="btn btn-primary">Confirmation de votre commande</button-->
-					</form>
+					<div class="form-row">
+						<div class="col d-flex justify-content-center formValidation">
+							<input id="boutonComfirmCommande" class="btn btn-primary" type="submit" name="Confirmation" value="Confirmation de votre commande">
+							<!--button id="boutonComfirmCommande" class="btn btn-primary">Confirmation de votre commande</button-->
+						</div>
+					</div>
+				</form>
 				</div>
 			
 			</div>
@@ -107,7 +110,7 @@
 		<script type="text/javascript" src="requete.js"></script>
 		<script type="text/javascript" src="AfficheCarte.js"></script>
 		<script type="text/javascript" src="evenement.js"></script>
-		<script> requetePanier() </script>
+		<script> requetePanier('produit') </script>
 
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
