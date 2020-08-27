@@ -10,3 +10,6 @@ li {
 .boutonInvisible {
     display: none;
 }
+.navbar-brand {
+    margin-left: 12px;
+}

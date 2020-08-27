@@ -1,42 +1,76 @@
-//faireRequete('GET', 'http://localhost:3000/api/cameras')
-//faireRequete('POST', 'http://localhost:3000/api/cameras/order', objetRequest)
+/*
+    Fonction générique AJAX avec promise
 
+    exemple de requête
+        faireRequete('GET',  'http://localhost:3000/api/cameras')
+        faireRequete('POST', 'http://localhost:3000/api/cameras/order', objetRequest)
+*/
 function faireRequete (method, url, objetRequest) {
     return new Promise(function (resolve, reject) {
-    var xhr = new XMLHttpRequest();
-      xhr.open(method, url)
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.onload = function () {
-        if (this.status >= 200 && this.status < 300) {
-          resolve(xhr.response);
-        } else {
-          reject({
-            status: this.status,
-            statusText: xhr.statusText
-          })
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url)
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = function () {
+            if (this.status >= 200 && this.status < 300) {              // test si le status renvoyé par le serveur est correct
+                resolve(xhr.response);                                          // test OK
+            } else {
+                reject({
+                    status: this.status,                                        // test KO
+                    statusText: xhr.statusText
+                })
+            }
         }
-      }
-      xhr.onerror = function () {
-        reject({
-          status: this.status,
-          statusText: xhr.statusText
-        })
-      }
-      xhr.send(objetRequest)
+        xhr.onerror = function () {
+            reject({
+                status: this.status,
+                statusText: xhr.statusText
+
+            })
+        }
+        xhr.send(objetRequest)
     })
 }
-// _____________________________________________________________________
+/* _____________________________________________________________________  
+
+    Fonction demande au serveur du catalogue de produits
+
+    Données retournées : une chaîne de caractères JSON représentant un Array contenant des objets JSON avec les données suivantes :
+        name
+        price
+        description
+        lenses (contient un Array de noms d'objectifs)
+        imageUrl
+*/
 
 requeteCatalogue = function() {
     faireRequete('GET', 'http://localhost:3000/api/cameras')
     .then(function (catalogue) {
-        AfficheCatalogue(JSON.parse(catalogue))
+
+        if (JSON.parse(localStorage.getItem('confirmation'))) {
+            localStorage.clear();
+            console.log("OK")
+        }
+
+
+
+        AfficheCatalogue(JSON.parse(catalogue))                         // retour Ok
     })
     .catch(function (err) {
-        console.error('Aieee..., il y a une erreur!', err.statusText)
+        console.error('Aieee..., il y a une erreur dans requeteCatalogue() !', err.statusText)   // retour KO
+        console.error(err)
     });
 }
-// _____________________________________________________________________
+/* _____________________________________________________________________  
+
+    Fonction demande au serveur un produit défini par son id
+
+    Données retournées : une chaîne de caractères JSON représentant un objet JSON avec les données suivantes :
+        name
+        price
+        description
+        lenses (contient un Array de noms d'objectifs)
+        imageUrl
+*/
 requeteProduit = function() {
     let motif = /.*id=(.*)\?obj=.*/ig
     let $_GET
@@ -55,19 +89,23 @@ requeteProduit = function() {
         AfficheCarteCameraGrandFormat(JSON.parse(produit))
     })
     .catch(function (err) {
-        console.error('Aieee..., il y a une erreur!', err.statusText)
+        console.error('Aieee..., il y a une erreur dans requeteProduit() !', err.statusText)
     });
 }
-// _____________________________________________________________________
+/* _____________________________________________________________________  
+
+    Fonction appel l'affichage du panier suivant les données du catalogue venant du serveur et le localStockage
+
+*/
 requetePanier = function() {
     let url = 'http://localhost:3000/api/cameras'
     faireRequete('GET', url)
     .then(function (catalogue) {
         let catalogue_JSON = (JSON.parse(catalogue))
-        var liste = JSON.parse(localStorage.getItem('panierLocal'))
-        var panier = []
-        if (liste) {
-            liste.forEach(eltcamera => {
+        var panierLocal = JSON.parse(localStorage.getItem('panierLocal'))
+        var panierAfficher = []
+        if (panierLocal) {
+            panierLocal.forEach(eltcamera => {
                 let motif = /.*obj.*/ig
                 let idModif = eltcamera
                 let obj = 0
@@ -84,19 +122,22 @@ requetePanier = function() {
                         cam.push(element['name'])
                         cam.push(element['price'])
                         cam.push(element['lenses'][obj])
-                        panier.push(cam)
+                        panierAfficher.push(cam)
                     }
                 })
             })
-            AffichePanier(panier)
+            AffichePanier(panierAfficher)
         }
     })
     .catch(function (err) {
-        console.error('Aieee..., il y a une erreur!', err.statusText)
+        console.error('Aieee..., il y a une erreur dans requetePanier() !', err.statusText)
     });
 }
-// ___________________________________________________________
-// fonction requete POST
+/* _____________________________________________________________________  
+
+    Fonction envoi du panier au serveur POST et retour de la confirmation 
+
+*/
 RequeteComfirm = function(objetRequest) {
     faireRequete('POST', 'http://localhost:3000/api/cameras/order', objetRequest)
     .then(function(confirmation) {
@@ -104,6 +145,6 @@ RequeteComfirm = function(objetRequest) {
         document.location.href="file:///Users/pink01/Documents/git/JWDP5/confirmation.html";
     })
     .catch(function (err) {
-        console.error('Aieee..., il y a une erreur!', err.statusText)
+        console.error('Aieee..., il y a une erreur dans RequeteComfirm() !', err.statusText)
     });
 }

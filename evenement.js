@@ -14,6 +14,7 @@ if (boutonChoixProduit){
     })
 }
 
+// _____________________________________________________________________
 const boutonEffacePanier = document.getElementById('boutonEffacePanier')
 if (boutonEffacePanier){
     boutonEffacePanier.addEventListener('click', event => {
@@ -23,6 +24,7 @@ if (boutonEffacePanier){
     })
 }
 
+// _____________________________________________________________________
 const boutonValidation = document.getElementById('boutonComfirmCommande')
 if (boutonValidation){
     boutonValidation.addEventListener('click', event => {

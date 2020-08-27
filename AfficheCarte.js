@@ -2,8 +2,9 @@
 // Appel de TOUS les produits du catalogue JSON pour les afficher
 
 function AfficheCatalogue(catalogue_JSON) {
+    if (catalogue_JSON.length == 0) {throw 'AfficheCarte.js : catalogue_JSON vide'}
     for (let camera in catalogue_JSON) {
-        AfficheCarteCameraPetitFormat(catalogue_JSON[camera])        
+        AfficheCarteCameraPetitFormat(catalogue_JSON[camera])
     }
 }
 // ________________________________________________________________
@@ -110,6 +111,7 @@ function AfficheCarteCameraGrandFormat(camera) {
 }
 // ________________________________________________________________
 function AffichePanier(panier) {
+    
     let total = 0
     if (panier != null && panier.length > 0) {
         for (let index = 0; index < panier.length; index++) {        
@@ -151,14 +153,16 @@ function AffichePanier(panier) {
     }
 }
 // ________________________________________________________________
-function CreaMenuOption(catalogue_JSON) {
-    let elementChoix = []    
-    for (let index = 0; index < catalogue_JSON['lenses'].length; index++) {
+function CreaMenuOption(produit) {
+    if (produit.length == 0) {throw 'AfficheCarte.js : produit vide'}                             // test
+    let elementChoix = []
+    if (produit['lenses'].length == 0) {throw 'AfficheCarte.js : produit[\'lenses\'] vide'}       // test
+    for (let index = 0; index < produit['lenses'].length; index++) {
         elementChoix = document.createElement('a')
         elementChoix.className = 'dropdown-item'
         elementChoix.id = 'menu' + index
-        elementChoix.setAttribute('href', 'produit.html' + "?id=" + catalogue_JSON['_id'] + '?obj=' + index)
-        elementChoix.appendChild(document.createTextNode(catalogue_JSON['lenses'][index]))
+        elementChoix.setAttribute('href', 'produit.html' + "?id=" + produit['_id'] + '?obj=' + index)
+        elementChoix.appendChild(document.createTextNode(produit['lenses'][index]))
 
         document.querySelector('.menu_objectif').appendChild(elementChoix)
     }
@@ -168,3 +172,4 @@ function AfficheIdCommande() {
     let id = JSON.parse(localStorage.getItem('confirmation'))
     document.querySelector('h4').innerHTML = id.orderId
 }
+// ________________________________________________________________
