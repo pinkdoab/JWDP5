@@ -55,33 +55,55 @@ if (boutonValidation){                                                      // T
             let formValide = true
 
             motif = /^[a-zA-Z_-]+( [a-zA-Z_-]+)*$/                          // Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -
-            let nom = document.getElementById("nom").value
+            let nom = document.getElementById("inputNom").value
             if (nom == '' || !motif.test(nom)) {                            // TEST du champs "Nom" suivant le motif
                 formValide = false
-                window.alert("Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -");
+                window.alert("Champs \"Nom\" non valide. Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -");
+            }
+
+            motif = /^[a-zA-Z_-]+( [a-zA-Z_-]+)*$/                          // Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -
+            let prenom = document.getElementById("inputPrenom").value
+            if (prenom == '' || !motif.test(prenom)) {                            // TEST du champs "Nom" suivant le motif
+                formValide = false
+                window.alert("Champs \"Prénom\" non valide. Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -");
+            }
+
+            motif = /^[a-zA-Z0-9_-]+( [a-zA-Z0-9_-]+)*$/                          // Autorisé : des lettres, des chiffres, un seul espace entre chaque mot, un signe _ ou le signe -
+            let adresse = document.getElementById("inputAdresse").value
+            if (adresse == '' || !motif.test(adresse)) {                            // TEST du champs "Nom" suivant le motif
+                formValide = false
+                window.alert("Champs \"Adresse\" non valide. Autorisé : des lettres, des chiffres, un seul espace entre chaque mot, un signe _ ou le signe -");
+            }
+            
+            motif = /^[a-zA-Z_-]+( [a-zA-Z_-]+)*$/                          // Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -
+            let ville = document.getElementById("inputVille").value
+            if (ville == '' || !motif.test(ville)) {                            // TEST du champs "Nom" suivant le motif
+                formValide = false
+                window.alert("Champs \"ville\" non valide. Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -");
+            }
+            motif = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/                          // Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -
+            let email = document.getElementById("inputEmail").value
+            if (email == '' || !motif.test(email)) {                            // TEST du champs "Nom" suivant le motif
+                formValide = false
+                window.alert("Champs \"email\" non valide.");
             }
             
             let contact = {
                 firstName : nom,
-                lastName : 'zzzzz',
-                address : 'xxxxxx',
-                city : 'qqqqqq',
-                email : 'ffff@fff.fr'
+                lastName : prenom,
+                address : adresse,
+                city : ville,
+                email : email
             }
 
-            let prod = []
-            let a
+            let products = []
             liste.forEach(element => {
-                a = element.split("?")
-                prod.push(a[0])
+                let a = element.split("?")
+                products.push(a[0])
             });
-            let products = prod
-            let objet = {
-                contact,
-                products
-            }
+
             if (formValide == true) {
-                let objetRequest = JSON.stringify(objet)
+                let objetRequest = JSON.stringify({contact,products})                
                 RequeteComfirm(objetRequest)
             }
         }

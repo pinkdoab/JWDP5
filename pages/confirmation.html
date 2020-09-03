@@ -49,22 +49,24 @@
             </div>
             <div class="row text-center">
                 <div class="col">
-                    <h5></h5>
+                    <div id="affichePrix"></div>
                 </div>
             </div>
             <div class="row  text-center">
                 <div class="col">
                     <h3>Votre numéro de commande est le :</h3>
-                    <h4 id="idCommande"></h4>
+                    <div id="idCommande"></div>
+                    <!--h4 id="idCommande"></h4-->
                     <h3>Votre nom est :</h3>
-                    <h4 id="firstName"></h4>
+                    <div id="firstName"></div>
+                    <!--h4 id="firstName"></h4-->
                 </div>
             </div>
         </div>
         
-        <script type="text/javascript" src="../javascript/requete.js"></script>
-        <script type="text/javascript" src="../javascript/AfficheCarte.js"></script>
-        <script type="text/javascript" src="../javascript/evenement.js"></script> 
+        <script src="../javascript/requete.js"></script>
+        <script src="../javascript/AfficheCarte.js"></script>
+        <script src="../javascript/evenement.js"></script> 
         <script>
             requetePanier('confirmation')
             AfficheIdCommande()

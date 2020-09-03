@@ -53,68 +53,64 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<h5></h5>
+				<div id="affichePrix"></div>
 			</div>
 		</div>
 	</div>
-		<div class="row text-center">
-			<div class="col formTitre">
-				<h4>Formulaire de commande</h4> 
-			</div>
+	<div class="row text-center">
+		<div class="col formTitre">
+			<h4>Formulaire de commande</h4> 
 		</div>
-		<div class="container">
+	</div>
+	<div class="container">
 		<div class="row">
 			<div class="col align-self-center">
 				<form id="formumaire">
 					<div class="form-row">
 						<div class="col formValidation">
-							<!--input id="nom" type="text" class="form-control" placeholder="Nom" required pattern="/^[a-zA-Z_-]+( [a-zA-Z_-]+)*$/" title="Que des lettres, un espace entre chaque mot, un signe _ ou le signe -"-->
-
-							<input id="nom" type="text" class="form-control" placeholder="Nom" required>
+							<label for="inputNom">Nom</label>							
+							<input id="inputNom" type="text" class="form-control" placeholder="Nom" required>
 						</div>
 						<div class="col formValidation">
-							<!--input type="text" class="form-control" placeholder="Prenom"  required pattern="/^[a-zA-Z_-]+( [a-zA-Z_-]+)*$/" title="Que des lettres, un espace entre chaque mot, un signe _ ou le signe -"-->
-							<input type="text" class="form-control" placeholder="Prenom">
+							<label for="inputPrenom">Prénom</label>
+							<input id="inputPrenom" type="text" class="form-control" placeholder="Prenom" required>
 						</div>
 					</div>
 
 					<div class="form-row">
 						<div class="col formValidation">
 							<label for="inputAdresse">Adresse</label>
-							<!--input type="text" class="form-control" placeholder="2, avenue Ben Salha"  required pattern="/^[a-zA-Z0-9_-]+( [a-zA-Z0-9_-]+)*$/" title="Que des lettres, des chiffres, un espace entre chaque mot, un signe _ ou le signe -"-->
-							<input type="text" class="form-control" placeholder="2, avenue Ben Salha">
+							<input id="inputAdresse" type="text" class="form-control" placeholder="2, avenue Ben Salha" required>
 						</div>
 					</div>
 
 					<div class="form-row">
 						<div class="col formValidation">
 							<label for="inputVille">Ville</label>
-							<!--input type="text" class="form-control" placeholder="Tokyo"  required pattern="^/[a-zA-Z_-]+( [a-zA-Z_-]+)*$/" title="Que des lettres, un espace entre chaque mot, un signe _ ou le signe -"-->
-							<input type="text" class="form-control" placeholder="Tokyo">
+							<input id="inputVille" type="text" class="form-control" placeholder="Tokyo" required>
 						</div>
 						<div class="col formValidation">
 							<label for="inputEmail">Email</label>
-							<!--input type="email" class="form-control" placeholder="pink@gmail.fr" required-->
-							<input type="email" class="form-control" placeholder="pink@gmail.fr">
+							<input id="inputEmail" type="email" class="form-control" placeholder="pink@gmail.fr" required>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="col d-flex justify-content-center formValidation">
 							<input id="boutonComfirmCommande" class="btn btn-primary" type="submit" name="Confirmation" value="Confirmation de votre commande">
-							<!--button id="boutonComfirmCommande" class="btn btn-primary">Confirmation de votre commande</button-->
 						</div>
 					</div>
 				</form>		
 			</div>
 		</div>
-		<script type="text/javascript" src="../javascript/requete.js"></script>
-		<script type="text/javascript" src="../javascript/AfficheCarte.js"></script>
-		<script type="text/javascript" src="../javascript/evenement.js"></script>
-		<script> requetePanier('panier') </script>
+	</div>
+	<script src="../javascript/requete.js"></script>
+	<script src="../javascript/AfficheCarte.js"></script>
+	<script src="../javascript/evenement.js"></script>
+	<script> requetePanier('panier') </script>
 
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	</body>
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
 </html>

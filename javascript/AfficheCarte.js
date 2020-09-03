@@ -2,13 +2,13 @@
 // Appel de TOUS les produits du catalogue JSON pour les afficher
 
 function AfficheCatalogue(catalogue_JSON) {
-    if (catalogue_JSON.length == 0) {throw 'AfficheCarte.js : catalogue_JSON vide'}             // test
+    if (catalogue_JSON.length == 0) {throw 'AfficheCarte.js : catalogue_JSON vide'}             // test erreur si le catalogue est vide
     for (let camera in catalogue_JSON) {
         AfficheCarteCameraPetitFormat(catalogue_JSON[camera])
     }
 }
 // ________________________________________________________________
-// Affiche un produit sous forme de carte
+// Affiche un produit sous forme de petite carte
 function AfficheCarteCameraPetitFormat(camera) {
 
     let elementDivCol = document.createElement('div')           //  <div class="col-4" style="padding: 10px;">
@@ -45,11 +45,11 @@ function AfficheCarteCameraPetitFormat(camera) {
     elementLien.setAttribute('href', "pages/produit.html?id=" + camera['_id'])
     elementDivCardBody.appendChild(elementLien)
 
-    let section = document.querySelector('section')
-    section.appendChild(elementDivCol)
+    document.getElementById('petiteCarte').appendChild(elementDivCol)
 }
 
 // ________________________________________________________________
+// Affiche un produit sous forme de grande carte
 function AfficheCarteCameraGrandFormat(camera) {
 
     let elementDivCol = document.createElement('div')               //  <div class="col-8 align-self-center">
@@ -77,16 +77,16 @@ function AfficheCarteCameraGrandFormat(camera) {
     let elementH5 = document.createElement('h5')                    //              <h5 class="card-title">Objectif</h5>
     elementH5.className = 'card-title'
 
-    let motif = /.*obj.*/ig
-    let menuNb
-    if (motif.test(window.location.search)) {
+    let motif = /.*obj.*/ig                                         // a un motif 'obj=XXXXX' ?
+    //let menuNb
+    if (motif.test(window.location.search)) {                       // TEST si un objectif photo est associé au produit, il l'affiche dans la carte
         let motif = /[^.*obj=]$/ig
-        menuNb = motif.exec(window.location.search)
+        let menuNb = motif.exec(window.location.search)                 // retourne l'index du menu objectif
         let boutonChoixProduit = document.getElementById('boutonChoixProduit')
-        boutonChoixProduit.classList.remove("disabled") 
-        boutonChoixProduit.innerHTML = 'Enregistrez ce produit dans votre panier'
+        boutonChoixProduit.classList.remove("disabled")                 // Affiche le bouton "Enregistrez..." 
+        boutonChoixProduit.innerHTML = 'Enregistrez ce produit dans votre panier' // Change le message du bouton
 
-        let nomH5 = document.createTextNode(camera['lenses'][menuNb])
+        let nomH5 = document.createTextNode(camera['lenses'][menuNb])   // Affiche l'objectif
         elementH5.appendChild(nomH5)
         elementDivCardBody.appendChild(elementH5)
     }
@@ -105,15 +105,19 @@ function AfficheCarteCameraGrandFormat(camera) {
     elementPrice.appendChild(nomPrice)
     elementDivCardBody.appendChild(elementPrice)
 
-    let section = document.querySelector('section')
-    section.appendChild(elementDivCol)
+    document.getElementById('grandeCarte').appendChild(elementDivCol)
 }
 // ________________________________________________________________
+/*    Affiche le panier suivant la page
+    parametres :
+        panier = Array du tableau a afficher
+        page = 'panier' ou 'confirmation' (où va s'afficher le panier dans la page panier ou confirmation)
+*/
 function AffichePanier(panier, page) {
     
     let boutonEffaceProduit
     let total = 0
-    if (panier != null && panier.length > 0) {                                          // test
+    if (panier != null && panier.length > 0) {                                          // TEST si le panier existe et non vide 
         for (let index = 0; index < panier.length; index++) {        
             let elementTr = document.createElement('tr')
 
@@ -133,7 +137,7 @@ function AffichePanier(panier, page) {
             elementTd3.appendChild(elementPrix)
             elementTr.appendChild(elementTd3)
 
-            if (page == 'panier' ) {
+            if (page == 'panier' ) {                                        // TEST  n'affiche pas les bouton sur la page confirmation
                 let elementTd4 = document.createElement('td')
                 let bouton = document.createElement('button')               //  <div class="col-8 align-self-center">
                 bouton.className = 'btn btn-primary interactiveBouton'
@@ -148,10 +152,12 @@ function AffichePanier(panier, page) {
             let tbody = document.querySelector('tbody')
             tbody.appendChild(elementTr)
             total += panier[index][1]
-        } 
-        let texte = document.createTextNode('Prix total : ' + total/100 + ' €')
-        let h5 = document.querySelector('h5')
-        h5.appendChild(texte)
+        }
+
+        let elementPrix = document.createElement('h5')
+        let prix = document.createTextNode('Prix total : ' + total/100 + ' €')
+        elementPrix.appendChild(prix)
+        document.getElementById('affichePrix').appendChild(elementPrix)
 
         var theButtons = document.querySelectorAll('.interactiveBouton')
         for (let i = 0; i < theButtons.length; i++) {
@@ -188,6 +194,5 @@ function AfficheIdCommande() {
     let id = JSON.parse(localStorage.getItem('confirmation'))
     document.getElementById('firstName').innerHTML = id.contact.firstName
     document.getElementById('idCommande').innerHTML = id.orderId
-    //document.querySelector('h4').innerHTML = id.orderId
 }
 // ________________________________________________________________
