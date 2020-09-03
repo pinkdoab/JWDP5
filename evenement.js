@@ -35,11 +35,12 @@ if (boutonValidation){
         if (liste != null && liste != 0 ) {
             event.preventDefault()
             let formValide = true
-            let nom = ''
-            if (document.getElementById("nom").value != '') {
-                nom = document.getElementById("nom").value
-            } else {
+
+            motif = /^[a-zA-Z_-]+( [a-zA-Z_-]+)*$/
+            let nom = document.getElementById("nom").value
+            if (nom == '' || !motif.test(nom)) {
                 formValide = false
+                window.alert("Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -");
             }
             
             let contact = {
