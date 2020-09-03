@@ -42,7 +42,7 @@ function AfficheCarteCameraPetitFormat(camera) {
 
     let elementLien = document.createElement('a')               //              <a class="stretched-link" href="produit.html?id=123456789"></a>
     elementLien.className = 'stretched-link'
-    elementLien.setAttribute('href', "produit.html?id=" + camera['_id'])
+    elementLien.setAttribute('href', "pages/produit.html?id=" + camera['_id'])
     elementDivCardBody.appendChild(elementLien)
 
     let section = document.querySelector('section')
@@ -83,7 +83,7 @@ function AfficheCarteCameraGrandFormat(camera) {
         let motif = /[^.*obj=]$/ig
         menuNb = motif.exec(window.location.search)
         let boutonChoixProduit = document.getElementById('boutonChoixProduit')
-        boutonChoixProduit.classList.remove("disabled")
+        boutonChoixProduit.classList.remove("disabled") 
         boutonChoixProduit.innerHTML = 'Enregistrez ce produit dans votre panier'
 
         let nomH5 = document.createTextNode(camera['lenses'][menuNb])
@@ -133,7 +133,7 @@ function AffichePanier(panier, page) {
             elementTd3.appendChild(elementPrix)
             elementTr.appendChild(elementTd3)
 
-            if (page == 'produit' ) {
+            if (page == 'panier' ) {
                 let elementTd4 = document.createElement('td')
                 let bouton = document.createElement('button')               //  <div class="col-8 align-self-center">
                 bouton.className = 'btn btn-primary interactiveBouton'
@@ -186,6 +186,8 @@ function CreaMenuOption(produit) {
 // ________________________________________________________________
 function AfficheIdCommande() {
     let id = JSON.parse(localStorage.getItem('confirmation'))
-    document.querySelector('h4').innerHTML = id.orderId
+    document.getElementById('firstName').innerHTML = id.contact.firstName
+    document.getElementById('idCommande').innerHTML = id.orderId
+    //document.querySelector('h4').innerHTML = id.orderId
 }
 // ________________________________________________________________

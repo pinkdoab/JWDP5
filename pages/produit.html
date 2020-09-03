@@ -5,13 +5,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../style.css">  
     </head>
     <body>
         <header class="row bg-primary">
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <a class="navbar-brand" href="#">
-                    <img src="images/logo.png" width="100" height="50" alt="logo orinoco">
+                    <img src="../images/logo.png" width="100" height="50" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,7 +19,15 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Catalogue</a>
+                            <a class="nav-link" href="../index.html">Catalogue</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="panier.html">Panier</a>
+                        </li>
+                        <li class="nav-item active dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Personnalisez votre produit</a>
+                            <div id="menuObjectif" class="dropdown-menu menu_objectif">
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -27,46 +35,24 @@
         </header>
         <div class="row text-center">
             <div class="col">
-                <h1>Votre commande est confirmée</h1>
-                <h2>Orinoco vous remercie</h2>
+                <h1>Votre sélection</h1>
             </div>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col align-self-center">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Produit</th>
-                                <th scope="col">Lentilles</th>
-                                <th scope="col">Prix</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col">
-                    <h5></h5>
-                </div>
-            </div>
-            <div class="row  text-center">
-                <div class="col">
-                    <h3>Votre numéro de commande est le :</h3>
-                <h4 id="idCommande"></h4>
+            <section class="row largeurGrandeCarte"></section>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="text-center">
+                    <a id="boutonChoixProduit" class="btn btn-primary btn-lg disabled" href="panier.html" >Personnalisez votre produit dans le menu</a>
                 </div>
             </div>
         </div>
-        
-        <script type="text/javascript" src="requete.js"></script>
-        <script type="text/javascript" src="AfficheCarte.js"></script>
-        <script type="text/javascript" src="evenement.js"></script> 
-        <script>
-            requetePanier('confirmation')
-            AfficheIdCommande()
-        </script>
+
+        <script type="text/javascript" src="../javascript/requete.js"></script>
+        <script type="text/javascript" src="../javascript/AfficheCarte.js"></script>
+        <script type="text/javascript" src="../javascript/evenement.js"></script>
+        <script> requeteProduit() </script>
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
