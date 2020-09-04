@@ -11,8 +11,8 @@ function AfficheCatalogue(catalogue_JSON) {
 // Affiche un produit sous forme de petite carte
 function AfficheCarteCameraPetitFormat(camera) {
 
-    let elementDivCol = document.createElement('div')           //  <div class="col-4" style="padding: 10px;">
-    elementDivCol.className = 'col-4 carte_padding'
+    let elementDivCol = document.createElement('div')           //  <div class="col-4 carte_padding">
+    elementDivCol.className = 'col-12 col-md-4 carte_padding'
 
     let elementDivCard = document.createElement('div')          //      <div class="card">
     elementDivCard.className = 'card'
@@ -53,7 +53,7 @@ function AfficheCarteCameraPetitFormat(camera) {
 function AfficheCarteCameraGrandFormat(camera) {
 
     let elementDivCol = document.createElement('div')               //  <div class="col-8 align-self-center">
-    elementDivCol.className = 'col'
+    elementDivCol.className = 'col-12 col-md-12'
 
     let elementDivCard = document.createElement('div')              //      <div class="card">
     elementDivCard.className = 'card'
@@ -175,6 +175,9 @@ function AffichePanier(panier, page) {
     }
 }
 // ________________________________________________________________
+/*
+    Affiche le menu des Objectifs photo dans la page "produit.html"
+*/
 function CreaMenuOption(produit) {
     if (produit.length == 0) {throw 'AfficheCarte.js : produit vide'}                             // test
     let elementChoix = []
@@ -190,6 +193,9 @@ function CreaMenuOption(produit) {
     }
 }
 // ________________________________________________________________
+/*
+    Affiche dans le DOM de la page "confirmation.html", le nom et Id de la commande
+*/
 function AfficheIdCommande() {
     let id = JSON.parse(localStorage.getItem('confirmation'))
     document.getElementById('firstName').innerHTML = id.contact.firstName
