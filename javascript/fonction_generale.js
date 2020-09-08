@@ -52,66 +52,34 @@ objUrl = function(elt) {
     return params.get('obj')
 }
 // ________________________________________________________________
-// Array pour afficher le panier
-AffichePanier = function(page, catalogue_JSON) {
+// Préparation d'un tableau pour afficher le panier
+prepaPanier = function(page, catalogue_JSON) {
     let panier = []
     let panierLocal = JSON.parse(localStorage.getItem('panierLocal'))
-    console.log("panierlocal : " + panierLocal)
-    panierLocal.forEach(eltcamera => {
-        let motif = /(.*)\?obj=(.)/ig
-        result = motif.exec(eltcamera)
-        console.log("eltcamera : " + result[1])
-        console.log("obj : " + result[2])
-        console.log("catalogue_JSON : " + catalogue_JSON)
-
-        catalogue_JSON.forEach(element => {
-            console.log("element._id : " + element._id)
-            console.log("element.name : " + element.name)
-            console.log("element.price : " + element.price)
-            console.log("result[1] : " + result[1])
-            if (element._id == result[1]) {
-                let cam = []
-                cam.push(element._id)
-                cam.push(element.name)
-                cam.push(element.price)
-                //cam.push(element['lenses'][obj])
-                panier.push(cam)
-            }
-        })
-        console.log("panier2 : " + panier)
-
-    })
-    AffichePanier2(panier, page) 
-
-    /*if (panierLocal != null && panierLocal != 0 ) {                     // TEST si le panier existe et n'est pas vide
+    if (panierLocal != null && panierLocal != 0 ) {                     // TEST si le panier existe et n'est pas vide*/
         panierLocal.forEach(eltcamera => {
-            let motif = /.*obj.*/ /*ig
-            let idModif = eltcamera
-            let obj = 0
-            if (motif.test(eltcamera)) {
-                let motif = /(.*)\?obj=(.)/ig
-                idModif = motif.exec(eltcamera)                  
-                eltcamera = idModif[1]
-                obj = idModif[2]
-            }
+            result = /(.*)\?obj=(.)/ig.exec(eltcamera)
             catalogue_JSON.forEach(element => {
-                if (eltcamera == element['_id']) {
+                if (element._id == result[1]) {
                     let cam = []
-                    cam.push(element['name'])
-                    cam.push(element['price'])
-                    cam.push(element['lenses'][obj])
+                    cam.push(element._id)
+                    cam.push(element.name)
+                    cam.push(element.price)
+                    cam.push(element['lenses'][result[2]])
                     panier.push(cam)
                 }
             })
         })
-        AffichePanier2(panier, page)
+        console.log("panier A : " + panier[0])
+        console.log("panier B : " + panier[1])
+        AffichePanier(panier, page)
     } else {
         console.log("Panier vide")
-    }*/
+    }
 }
-function AffichePanier2(panier, page) {
-    
-    let boutonEffaceProduit
+// ________________________________________________________________
+// Affiche panier
+function AffichePanier(panier, page) {
     let total = 0
     if (panier != null && panier.length > 0) {                                          // TEST si le panier existe et non vide 
         for (let index = 0; index < panier.length; index++) {        
@@ -123,22 +91,22 @@ function AffichePanier2(panier, page) {
             elementTr.appendChild(elementTd1)
 
             let elementTd2 = document.createElement('td')
-            let element = document.createTextNode(panier[index][2])
+            let element = document.createTextNode(panier[index][3])
             elementTd2.appendChild(element)
             elementTr.appendChild(elementTd2)
 
             let elementTd3 = document.createElement('td')
-            let prix = panier[index][1] /100 + ' €'
-            let elementPrix = document.createTextNode(prix)
+            let elementPrix = document.createTextNode(panier[index][2] /100 + ' €')
             elementTd3.appendChild(elementPrix)
             elementTr.appendChild(elementTd3)
 
-            if (page == 'panier' ) {                                        // TEST  n'affiche pas les bouton sur la page confirmation
+            if (page == 'panier') {                                        // TEST  n'affichera pas les bouton sur la page confirmation
                 let elementTd4 = document.createElement('td')
                 let bouton = document.createElement('button')               //  <div class="col-8 align-self-center">
                 bouton.className = 'btn btn-primary interactiveBouton'
-                let idBouton = "idBouton" + index
-                bouton.id = idBouton
+                //let idBouton = "idBouton" + index
+                bouton.id = "idBouton" + index
+                //bouton.id = idBouton
                 let textebouton = document.createTextNode("Effacer le produit")
                 bouton.appendChild(textebouton)
                 elementTd4.appendChild(bouton)
@@ -147,7 +115,7 @@ function AffichePanier2(panier, page) {
 
             let tbody = document.querySelector('tbody')
             tbody.appendChild(elementTr)
-            total += panier[index][1]
+            total += panier[index][2]
         }
 
         let elementPrix = document.createElement('h5')

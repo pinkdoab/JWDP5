@@ -17,7 +17,7 @@
 requetePanier = function(page) {
     faireRequete('GET', 'http://localhost:3000/api/cameras')
     .then(function (catalogue) {                                        // requête faireRequete() réussie
-        AffichePanier(page, JSON.parse(catalogue))
+        prepaPanier(page, JSON.parse(catalogue))
     })
     .catch(function (err) {                                             // requête faireRequete() ratée
         console.error('Aieee..., il y a une erreur dans requetePanier() !', err.statusText)
@@ -35,6 +35,7 @@ if (boutonValidation){                                                      // T
     boutonValidation.addEventListener('click', event => {
         var liste = JSON.parse(localStorage.getItem('panierLocal'))
         console.log ("Click bouton validation : " + liste)
+        let messageErreur =""
         if (liste != null && liste != 0 ) {                                 // TEST si un panier existe et n'est pas vide
             event.preventDefault()
             let formValide = true
@@ -43,34 +44,37 @@ if (boutonValidation){                                                      // T
             let nom = document.getElementById("inputNom").value
             if (nom == '' || !motif.test(nom)) {                            // TEST du champs "Nom" suivant le motif
                 formValide = false
-                window.alert("Champs \"Nom\" non valide. Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -");
+                messageErreur += "Champs \"Nom\" non valide. \nAutorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -\n\n"
+
             }
 
             motif = /^[a-zA-Z_-]+( [a-zA-Z_-]+)*$/                          // Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -
             let prenom = document.getElementById("inputPrenom").value
             if (prenom == '' || !motif.test(prenom)) {                            // TEST du champs "Nom" suivant le motif
                 formValide = false
-                window.alert("Champs \"Prénom\" non valide. Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -");
+                messageErreur += "Champs \"Prénom\" non valide. \nAutorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -\n\n"
+
             }
 
             motif = /^[a-zA-Z0-9_-]+( [a-zA-Z0-9_-]+)*$/                          // Autorisé : des lettres, des chiffres, un seul espace entre chaque mot, un signe _ ou le signe -
             let adresse = document.getElementById("inputAdresse").value
             if (adresse == '' || !motif.test(adresse)) {                            // TEST du champs "Nom" suivant le motif
                 formValide = false
-                window.alert("Champs \"Adresse\" non valide. Autorisé : des lettres, des chiffres, un seul espace entre chaque mot, un signe _ ou le signe -");
+                messageErreur += "Champs \"Adresse\" non valide. \nAutorisé : des lettres, des chiffres, un seul espace entre chaque mot, un signe _ ou le signe -\n\n"
             }
             
             motif = /^[a-zA-Z_-]+( [a-zA-Z_-]+)*$/                          // Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -
             let ville = document.getElementById("inputVille").value
             if (ville == '' || !motif.test(ville)) {                            // TEST du champs "Nom" suivant le motif
                 formValide = false
-                window.alert("Champs \"ville\" non valide. Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -");
+                messageErreur += "Champs \"ville\" non valide. \nAutorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -\n\n"
+
             }
             motif = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/                          // Autorisé : des lettres, un seul espace entre chaque mot, un signe _ ou le signe -
             let email = document.getElementById("inputEmail").value
             if (email == '' || !motif.test(email)) {                            // TEST du champs "Nom" suivant le motif
                 formValide = false
-                window.alert("Champs \"email\" non valide.");
+                messageErreur += "Champs \"email\" non valide."
             }
             
             let contact = {
@@ -90,6 +94,8 @@ if (boutonValidation){                                                      // T
             if (formValide == true) {
                 let objetRequest = JSON.stringify({contact,products})                
                 RequeteComfirm(objetRequest)
+            } else {
+                window.alert(messageErreur)
             }
         }
     })
