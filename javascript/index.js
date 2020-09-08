@@ -13,7 +13,7 @@ requeteCatalogue = function() {
     faireRequete('GET', 'http://localhost:3000/api/cameras')
     .then(function (catalogue) {                                        // requête faireRequete() réussie
         EffaceLocalStokage()
-        AfficheCarteCameraPetitFormat(JSON.parse(catalogue))                      // Affiche les produits
+        AfficheCarteCameraPetitFormat(JSON.parse(catalogue))
     })
     .catch(function (err) {                                             // requête faireRequete() ratée
         console.error('Aieee..., il y a une erreur dans requeteCatalogue() !', err.statusText)   // retour KO

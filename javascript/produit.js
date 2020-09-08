@@ -66,11 +66,8 @@ function AfficheCarteCameraGrandFormat(camera) {
     let elementH5 = document.createElement('h5')                    //              <h5 class="card-title">Objectif</h5>
     elementH5.className = 'card-title'
 
-    let motif = /.*obj.*/ig                                         // a un motif 'obj=XXXXX' ?
-    //let menuNb
-    if (motif.test(window.location.search)) {                       // TEST si un objectif photo est associé au produit, il l'affiche dans la carte
-        let motif = /[^.*obj=]$/ig
-        let menuNb = motif.exec(window.location.search)                 // retourne l'index du menu objectif
+    if (/.*obj.*/ig.test(window.location.search)) {                       // TEST si un objectif photo est associé au produit, il l'affiche dans la carte
+        let menuNb = /[^.*obj=]$/ig.exec(window.location.search)                 // retourne l'index du menu objectif
         let boutonChoixProduit = document.getElementById('boutonChoixProduit')
         boutonChoixProduit.classList.remove("disabled")                 // Affiche le bouton "Enregistrez..." 
         boutonChoixProduit.innerHTML = 'Enregistrez ce produit dans votre panier' // Change le message du bouton

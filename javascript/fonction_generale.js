@@ -33,6 +33,31 @@ function faireRequete (method, url, objetRequest) {
         xhr.send(objetRequest)
     })
 }
+/* _____________________________________________________________________  
+    Requête d'affichage du panier suivant les données du catalogue et du localStockage
+
+    parametre page = 'produit' ou 'confirmation' (où va s'afficher le panier dans la page panier ou validation)
+
+    requête des données catalogue : faireRequete('GET', 'http://localhost:3000/api/cameras'
+    Données retournées : un Array contenant des objets JSON avec les données suivantes :
+        name
+        price
+        description
+        lenses (contient un Array de noms d'objectifs)
+        imageUrl
+
+        si la requête a réussi et le panier existe (localStorage 'panier local'), création un tableau de produits a afficher
+        puis appel de la fonction AffichePanier() pour afficher ce panier
+*/
+requetePanier = function(page) {
+    faireRequete('GET', 'http://localhost:3000/api/cameras')
+    .then(function (catalogue) {                                        // requête faireRequete() réussie
+        prepaPanier(page, JSON.parse(catalogue))
+    })
+    .catch(function (err) {                                             // requête faireRequete() ratée
+        console.error('Aieee..., il y a une erreur dans requetePanier() !', err.statusText)
+    });
+}
 // ________________________________________________________________
 // recherche id dans l'url
 idUrl = function() {
@@ -41,15 +66,6 @@ idUrl = function() {
         throw 'fonction_generale.js : paramètre Id manquant dans l\'url'
     }
     return params.get('id')
-}
-// ________________________________________________________________
-// recherche obj dans l'url
-objUrl = function(elt) {
-    let params = new URLSearchParams(elt);
-    if (params.get('obj') == null) {
-        throw 'fonction_generale.js : paramètre obj manquant dans l\'url'
-    }
-    return params.get('obj')
 }
 // ________________________________________________________________
 // Préparation d'un tableau pour afficher le panier
@@ -70,8 +86,6 @@ prepaPanier = function(page, catalogue_JSON) {
                 }
             })
         })
-        console.log("panier A : " + panier[0])
-        console.log("panier B : " + panier[1])
         AffichePanier(panier, page)
     } else {
         console.log("Panier vide")
@@ -86,7 +100,7 @@ function AffichePanier(panier, page) {
             let elementTr = document.createElement('tr')
 
             let elementTd1 = document.createElement('td')
-            let elementId1 = document.createTextNode(panier[index][0])
+            let elementId1 = document.createTextNode(panier[index][1])
             elementTd1.appendChild(elementId1)
             elementTr.appendChild(elementTd1)
 
@@ -104,9 +118,7 @@ function AffichePanier(panier, page) {
                 let elementTd4 = document.createElement('td')
                 let bouton = document.createElement('button')               //  <div class="col-8 align-self-center">
                 bouton.className = 'btn btn-primary interactiveBouton'
-                //let idBouton = "idBouton" + index
                 bouton.id = "idBouton" + index
-                //bouton.id = idBouton
                 let textebouton = document.createTextNode("Effacer le produit")
                 bouton.appendChild(textebouton)
                 elementTd4.appendChild(bouton)
